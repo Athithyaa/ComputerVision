@@ -1,0 +1,1 @@
+function [outImg] = funFilter(inImg)
