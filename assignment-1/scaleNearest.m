@@ -13,19 +13,29 @@ function [output] = scaleNearest(input, factor)
     output = cat(channels, red_scale, green_scale, blue_scale);
     
 function [output] = NearestNeighbor(input, factor)
-    [rows, cols] = size(input);
-    output = zeros(factor*rows, factor*cols, class(input));
+    oldsize = size(input);
+    newsize = round(oldsize*factor);
+    output = zeros(newsize(1), newsize(2), class(input));
     
-    for i=1:factor*rows
-        for j=1:factor*cols
-            % map from output image location to input image location
-            [ii, jj] = sampleNearest((i-1)*(rows-1)/(factor*rows-1)+1, (j-1)*(cols-1)/(factor*cols-1)+1);
-
-            % assign value
-            output(i,j) = input(ii,jj);
+    biggerSize = max(oldsize, newsize);
+    scaleup = factor > 1;
+    
+    if not(scaleup)
+        factor = 1/factor;
+    end
+    
+    for y = 1:biggerSize(1)
+        for x = 1:biggerSize(2)
+            [xx, yy] = sampleNearest(x, y, factor);
+            
+            if scaleup
+                output(y, x) = input(yy, xx);
+            else
+                output(yy, xx) = input(y, x);
+            end
         end
     end
     
-function [xx, yy] = sampleNearest( x, y)
-    xx = round(x);
-    yy = round(y);
+function [xx, yy] = sampleNearest(x, y, factor)
+    xx = ceil(x/factor);
+    yy = ceil(y/factor);
