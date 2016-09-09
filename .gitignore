@@ -12,3 +12,9 @@ slprj/
 
 # Session info
 octave-workspace
+
+# temporary files
+factor.jpg
+gauss.jpg
+nearest.jpg
+mean.jpg
