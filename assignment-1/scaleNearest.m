@@ -19,15 +19,13 @@ function [output] = NearestNeighbor(input, factor)
     for i=1:factor*rows
         for j=1:factor*cols
             % map from output image location to input image location
-            ii = round( (i-1)*(rows-1)/(factor*rows-1)+1 );
-            jj = round( (j-1)*(cols-1)/(factor*cols-1)+1 );
-            
-            % [ii, jj] = sampleNearest(x, y)
+            [ii, jj] = sampleNearest((i-1)*(rows-1)/(factor*rows-1)+1, (j-1)*(cols-1)/(factor*cols-1)+1);
 
             % assign value
             output(i,j) = input(ii,jj);
         end
     end
     
-function [ value ] = sampleNearest( x, y)
-    % TODO: implement this function
+function [xx, yy] = sampleNearest( x, y)
+    xx = round(x);
+    yy = round(y);
