@@ -1,24 +1,7 @@
 function [output] = scaleNearest(input, factor)
-    % output = nearest_neighbor_zoom(input, factor);
-    
-    [~, ~, channels] = size(input);
-    
-    % make this generic per channels(like in case of RGBA). for now assumed to be RGB channels
-    red_channel = input(:, :, 1);
-    green_channel = input(:, :, 2);
-    blue_channel = input(:, :, 3);
-    
-    red_scale = NearestNeighborInterpolate(red_channel, factor);
-    green_scale = NearestNeighborInterpolate(green_channel, factor);
-    blue_scale = NearestNeighborInterpolate(blue_channel, factor);
-    
-    output = cat(channels, red_scale, green_scale, blue_scale);
-    
-    
-function [output] = NearestNeighborInterpolate(input, factor)
-    oldsize = size(input);
+    oldsize = [size(input, 1), size(input, 2)];
     newsize = round(oldsize*factor);
-    output = zeros(newsize(1), newsize(2), class(input));
+    output = zeros(newsize(1), newsize(2), size(input, 3), class(input));
     
     biggerSize = max(oldsize, newsize);
     scaleup = factor > 1;
@@ -32,9 +15,9 @@ function [output] = NearestNeighborInterpolate(input, factor)
             [xx, yy] = sampleNearest(x/factor, y/factor);
            
             if scaleup
-                output(y, x) = input(yy, xx);
+                output(y, x, :) = input(yy, xx, :);
             else
-                output(yy, xx) = input(y, x);
+                output(yy, xx, :) = input(y, x, :);
             end
         end
     end
