@@ -10,9 +10,11 @@ function [outImg] = gaussianFilter(inImg, sigma)
     blue_channel = inImg(:, :, 3);
     
     %gaussKernel = fspecial('gaussian', [3 3], sigma);
-    [x, y] = meshgrid(-1:1, -1:1);
-    temp = exp(-(x.^2 + y.^2) / (2*sigma^2));
-    gaussKernel = temp / sum(temp(:));
+    k = ceil(2*sigma)+1;
+    h = floor(k/2);
+    [x, y] = meshgrid(-h:h, -h:h);
+    temp = (1/(2*pi*sigma^2))*exp(-(x.^2 + y.^2) / (2*sigma.^2));
+    gaussKernel = temp / sum(sum(temp));
     
     red_filter = applyFilter(red_channel, gaussKernel);
     green_filter = applyFilter(green_channel, gaussKernel);
