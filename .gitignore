@@ -13,6 +13,9 @@ slprj/
 # Session info
 octave-workspace
 
+# Ignore DS_Store
+.DS_Store
+
 # temporary files
 factor.jpg
 gauss.jpg
