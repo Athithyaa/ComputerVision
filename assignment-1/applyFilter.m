@@ -3,7 +3,7 @@ function imgFilt = applyFilter(img, kernel)
     k_size = size(kernel, 1);
     
     % calculate the padding
-    pad = (k_size - 1)/2;
+    pad = ((k_size - 1)/2);
     
     % pad the image
     img(rows+2*pad, cols+2*pad) = 0;

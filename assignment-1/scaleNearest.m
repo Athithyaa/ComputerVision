@@ -1,6 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 1
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [output] = scaleNearest(input, factor)
     oldsize = [size(input, 1), size(input, 2)];
-    newsize = round(oldsize*factor);
+    newsize = floor(oldsize*factor);
     output = zeros(newsize(1), newsize(2), size(input, 3), class(input));
     
     biggerSize = max(oldsize, newsize);
@@ -22,8 +29,6 @@ function [output] = scaleNearest(input, factor)
         end
     end
     
-    % I might want to do smoothing after scale up or scale down.
-    
 function [xx, yy] = sampleNearest(x, y)
-    xx = max(round(x), 1);
-    yy = max(round(y), 1);
+    xx = max(floor(x), 1);
+    yy = max(floor(y), 1);

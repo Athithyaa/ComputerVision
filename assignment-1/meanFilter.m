@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 1
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function fimg = meanFilter(img , k_size)
     % extract rgb and run mean filter on all three. 
     % then cat all 3 channels togather. otherwise figure out 

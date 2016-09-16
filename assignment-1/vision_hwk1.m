@@ -1,10 +1,9 @@
-% This script creates a menu driven application
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Author: Sunil(suba5417@colorado.edu)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 1
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all;
 close all;
 clc;
@@ -63,11 +62,13 @@ while choice ~= 1
            newImage = meanFilter(current_img, k_size);
            
            % 3. Display the old and the new image using subplot
-           subplot(1, 2, 1);
+           subplot(121);
            imagesc(current_img);
+           mt(1) = title('original image');
            
-           subplot(1, 2, 2);
+           subplot(122);
            imagesc(newImage);
+           mt(2) = title('Mean filtered image');
            
            % 4. Save the newImage to a file
            imwrite(newImage, 'mean.jpg', 'jpg');
@@ -82,11 +83,13 @@ while choice ~= 1
            newImage = gaussianFilter(current_img, sigma);
            
            % 3. Display the old and the new image using subplot
-           subplot(1, 2, 1);
+           subplot(121);
            imagesc(current_img);
+           mt(1) = title('original image');
            
-           subplot(1, 2, 2);
+           subplot(122);          
            imagesc(newImage);
+           mt(2) = title('Gaussian filtered image');
            
            % 4. Save the newImage to a file
            imwrite(newImage, 'gauss.jpg', 'jpg');
@@ -101,11 +104,13 @@ while choice ~= 1
            newImage = scaleNearest(current_img, factor);
            
            % 3. Display the old and the new image using subplot
-           subplot(1, 2, 1);
+           subplot(121);
            imagesc(current_img);
+           mt(1) = title('original image');
            
-           subplot(1, 2, 2);
+           subplot(122);
            imagesc(newImage);
+           mt(2) = title('Nearest neighbor scale');
            
            % 4. Save the newImage to a file
            imwrite(newImage, 'nearest.jpg', 'jpg');
@@ -120,11 +125,13 @@ while choice ~= 1
            newImage = scaleBilinear(current_img, factor);
            
            % 3. Display the old and the new image using subplot
-           subplot(1, 2, 1);
+           subplot(121);
            imagesc(current_img);
+           mt(1) = title('original image');
            
-           subplot(1, 2, 2);
+           subplot(122);
            imagesc(newImage);
+           mt(2) = title('Bilinear interpolated image');
            
            % 4. Save the newImage to a file
            imwrite(newImage, 'bilinear.jpg', 'jpg');
@@ -146,8 +153,11 @@ while choice ~= 1
            
            subplot(121);
            imagesc(current_img);
+           mt(1) = title('original image');
+           
            subplot(122);
            imagesc(output);
+           mt(2) = title('Fun filter image');
            
            imwrite(output, 'funfilter.jpg', 'jpg');
    end

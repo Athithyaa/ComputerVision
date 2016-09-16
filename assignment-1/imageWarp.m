@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 1
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [out] = imageWarp(in)
      [rows, cols, ch] = size(in);
      out = zeros(rows, cols, ch, class(in));
