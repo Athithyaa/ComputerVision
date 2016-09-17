@@ -138,28 +138,17 @@ while choice ~= 1
            
        case 8
            % fun filter
-           funfilter = menu('choose fun filter', 'Fish eye', 'Image warp', ...
-               'Sine', 'Swirl');
-           switch funfilter
-               case 1
-                   output = fisheye(current_img);
-               case 2
-                   output = imageWarp(current_img);
-               case 3
-                   output = sine(current_img);
-               case 4
-                   output = swirl(current_img);
-           end
+           newImage = funFilter(current_img);
            
            subplot(121);
            imagesc(current_img);
            mt(1) = title('original image');
            
            subplot(122);
-           imagesc(output);
+           imagesc(newImage);
            mt(2) = title('Fun filter image');
            
-           imwrite(output, 'funfilter.jpg', 'jpg');
+           imwrite(newImage, 'funfilter.jpg', 'jpg');
    end
    % Display menu again and get user's choice
    choice = menu('Choose an option', 'Exit Program', 'Load Image', ...

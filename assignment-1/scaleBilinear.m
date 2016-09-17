@@ -17,13 +17,13 @@ function [output] = scaleBilinear(input, factor)
             
             [x0, y0, x1, y1] = sampleBilinear(i, j, factor, oldsize);
             
-            ctl = input(x0,y0,:);
-            cbl = input(x1,y0,:);
-            ctr = input(x0,y1,:);
-            cbr = input(x1,y1,:);
+            f00 = input(x0,y0,:);
+            f10 = input(x1,y0,:);
+            f01 = input(x0,y1,:);
+            f11 = input(x1,y1,:);
             
-            tr = (ctr*yd)+(ctl*(1-yd));
-            br = (cbr*yd)+(cbl*(1-yd));
+            tr = (f01*yd)+(f00*(1-yd));
+            br = (f11*yd)+(f10*(1-yd));
             output(i,j,:) = (br*xd)+(tr*(1-xd));
         end
     end

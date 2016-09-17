@@ -29,6 +29,7 @@ function [out] = fisheye(in)
             u = floor((u * midx) + midx);
             v = floor((v * midy) + midy);
             
+            % check for bounds
             %fprintf('%f %f\n', u, v);
             if u >=1 && v >= 1 && u <= size(out, 1) && u <= size(out, 2)
                 out(v, u, :) = in(y, x,:);

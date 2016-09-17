@@ -11,6 +11,7 @@ function [out] = swirl(in)
     midx = rows/2;
     midy = cols/2;
     
+    % ask user for the for the number of swirls
     k = 100;
     
     for y = 1:rows
