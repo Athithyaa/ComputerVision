@@ -4,7 +4,7 @@
 % Assignment: 1
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [out] = Swirl(in)
+function [out] = swirl(in)
     [rows, cols, ch] = size(in);
     out = zeros(rows, cols, ch, class(in));
     
@@ -15,8 +15,15 @@ function [out] = Swirl(in)
     
     for y = 1:rows
         for x = 1:cols
+            % convert from (x, y) -> (r, theta) 
+            % cartesian coordiantes to polar coordiantes
             [theta, rho] = cart2pol(x-midx, y-midy);
+            
+            % modify the theta and some delta
             phi = theta + (rho/k);
+            
+            % Convert the new polar coordinate values into 
+            % cartesian coordinates
             [tx, ty] = pol2cart(phi, rho);
             
             tx = max(ceil(tx+midx), 1);

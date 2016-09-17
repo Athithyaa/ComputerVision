@@ -4,7 +4,6 @@
 % Assignment: 1
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function [output] = scaleNearest(input, factor)
     oldsize = [size(input, 1), size(input, 2)];
     newsize = floor(oldsize*factor);

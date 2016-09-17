@@ -4,7 +4,7 @@
 % Assignment: 1
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [out] = Sine(in)
+function [out] = sine(in)
     [rows, cols, ch] = size(in);
      out = zeros(rows, cols, ch, class(in));
  

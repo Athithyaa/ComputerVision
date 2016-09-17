@@ -20,4 +20,5 @@ function fimg = meanFilter(img , k_size)
     green_filter = applyFilter(green_channel, meanKernel);
     blue_filter = applyFilter(blue_channel, meanKernel);
     
+    % now concat all the channels
     fimg = cat(channels, red_filter, green_filter, blue_filter);
