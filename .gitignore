@@ -16,9 +16,10 @@ octave-workspace
 # Ignore DS_Store
 .DS_Store
 
-# temporary files
+# temporary files for assignments
 factor.jpg
 gauss.jpg
 nearest.jpg
 mean.jpg
 funfilter.jpg
+imageMosaic.m
