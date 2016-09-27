@@ -1,16 +1,16 @@
 function H = computeHomography(p1, p2)
     n = size(p1, 1);
-    p = zeros(n*3, 9);
-    pp = zeros(n*3, 1);
     
-    % lambda * p = H * pp
+    A = zeros(2*n, 9);
     for i = 1:n
-        p(3*(i-1)+1, 1:3) = [p2(i,:), 1];
-        p(3*(i-1)+2, 4:6) = [p2(i,:), 1];
-        p(3*(i-1)+3, 7:9) = [p2(i,:), 1];
-        pp(3*(i-1)+1:3*(i-1)+3) = [p1(i,:), 1];
+        x1 = p1(i, 1);
+        y1 = p1(i, 2);
+        X1 = p2(i, 1);
+        Y1 = p2(i, 2);
+        A(2*i-1,:) = [-x1, -y1, -1, 0, 0, 0, x1*X1, y1*X1, X1];
+        A(2*i,:)   = [0, 0, 0, -x1, -y1, -1, x1*Y1, y1*Y1, Y1];
     end
     
-    x = (p\pp);
-    H = reshape(x, [3 3]);
+    [~, ~, V] = svd(A);
+    H = reshape(V(:,end), 3, 3);
 end
