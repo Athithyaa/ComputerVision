@@ -37,5 +37,5 @@ pts2 = ginput2(4);
 H = computeHomography(pts1, pts2);
 output = imageWarp(image1, image2, H);
 
-%figure;
-%imagesc(output);
+figure;
+imshow(output);
