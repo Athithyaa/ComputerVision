@@ -15,15 +15,15 @@ function output = imageWarp(image1, image2, H)
     ymax = max((c(1,:)./c(3,:)));
     xmax = max((c(2,:)./c(3,:)));
     
-    Sr = round(abs(min([ymin 1])));
-    Sc = round(abs(min([xmin 1])));
-    Srmax = round(max([ymax r2]));
-    Scmax = round(max([xmax c2]));
+    symin = round(abs(min([ymin 1])));
+    sxmin = round(abs(min([xmin 1])));
+    symax = round(max([ymax r2]));
+    sxmax = round(max([xmax c2]));
     
     im1 = im2double(image1);
     im2 = im2double(image2);
     
-    [cm, rm] = meshgrid(1-Sc:Scmax,1-Sr:Srmax);
+    [cm, rm] = meshgrid(1-sxmin:sxmax,1-symin:symax);
     [r, c] = size(rm);    
 
     K = H \ [rm(:)'; cm(:)'; ones(1,r*c)];
@@ -36,4 +36,4 @@ function output = imageWarp(image1, image2, H)
     output(:,:,2) = interp2(rm, cm, im1(:,:,2), co, ro, 'linear');
     output(:,:,3) = interp2(rm, cm, im1(:,:,3), co, ro, 'linear');
 
-    output(Sr+1:Sr+r2, Sc+1:Sc+c2, :) = im2(1:r2, 1:c2, :);
+    output(symin+1:symin+r2, sxmin+1:sxmin+c2, :) = im2(1:r2, 1:c2, :);
