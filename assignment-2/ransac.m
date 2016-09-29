@@ -45,7 +45,8 @@ for i = 1: size(des1,1)
   end
 end
 
-%pts1(~any(pts1), :) = [];
-%pts2(~any(pts2), :) = [];
+pts1(~any(pts1), :) = [];
+pts2(~any(pts2), :) = [];
+
 
 end

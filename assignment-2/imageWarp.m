@@ -4,36 +4,56 @@
 % Assignment: 2
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function output = imageWarp(image1, image2, H)
-    [r1, c1, ~] = size(image1);
-    [r2, c2, ~] = size(image2);
-    c  = H * [ 1 1  r1 r1 ;
-               1 c1 1  c1 ;
-               1 1  1  1 ];
-    ymin = min((c(1,:)./c(3,:)));
-    xmin = min((c(2,:)./c(3,:)));
-    ymax = max((c(1,:)./c(3,:)));
-    xmax = max((c(2,:)./c(3,:)));
+function output = imageWarp2(image1, image2, H)
+    [row1, col1, ~] = size(image1);
     
-    symin = round(abs(min([ymin 1])));
-    sxmin = round(abs(min([xmin 1])));
-    symax = round(max([ymax r2]));
-    sxmax = round(max([xmax c2]));
+    % transform the image-1 co-ordinates to the image-2 coordinate system.
+    % using the homography matrix H (computed as x2 = H*x1)
+    tcoord = H * [1        1       1;
+                   1        col1    1;
+                   row1     col1    1;
+                   row1     1       1]';
     
-    im1 = im2double(image1);
-    im2 = im2double(image2);
+    % convert to inhomogenous coordinates
+    for i = 1:3
+        tcoord(i,:) = tcoord(i,:)./tcoord(3,:);
+    end
     
-    [cm, rm] = meshgrid(1-sxmin:sxmax,1-symin:symax);
-    [r, c] = size(rm);    
+    box1.rowmin = min(tcoord(1, :)); box1.colmin = min(tcoord(2, :));
+    box1.rowmax = max(tcoord(1, :)); box1.colmax = max(tcoord(2, :));
+    
+    [row2, col2, ~] = size(image2);
+    box2.rowmin = 1;    box2.colmin = 1;
+    box2.rowmax = row2; box2.colmax = col2;
+    
+    bbox = getBoundingBox(box1, box2); 
+    
+    [colmat, rowmat] = meshgrid(1-bbox.colmin:bbox.colmax, 1-bbox.rowmin:bbox.rowmax);
+    [rows, cols] = size(rowmat);    
 
-    K = H \ [rm(:)'; cm(:)'; ones(1,r*c)];
-    ro = reshape(K(1,:)./K(3,:),r,c);
-    co = reshape(K(2,:)./K(3,:),r,c);
+    K = H \ [rowmat(:)'; colmat(:)'; ones(1, rows*cols)];
+    ro = reshape(K(1,:)./K(3,:),rows,cols);
+    co = reshape(K(2,:)./K(3,:),rows,cols);
 
-    [rm, cm] = meshgrid(1:c1,1:r1);
+    [rowmat, colmat] = meshgrid(1:col1, 1:row1);
+    
+    output = zeros(rows, cols);
+    
+    image1 = im2double(image1);
+    image2 = im2double(image2);
+    
+    for i = 1:3
+        output(:, :, i) = ...
+            interp2(rowmat, colmat, image1(:, :, i), co, ro, 'linear');
+    end
+    
+    output(bbox.rowmin+1:bbox.rowmin+row2, ...
+        bbox.colmin+1:bbox.colmin+col2, :) = image2(1:row2, 1:col2, :);
+end
 
-    output(:,:,1) = interp2(rm, cm, im1(:,:,1), co, ro, 'linear');
-    output(:,:,2) = interp2(rm, cm, im1(:,:,2), co, ro, 'linear');
-    output(:,:,3) = interp2(rm, cm, im1(:,:,3), co, ro, 'linear');
-
-    output(symin+1:symin+r2, sxmin+1:sxmin+c2, :) = im2(1:r2, 1:c2, :);
+function bbox = getBoundingBox(box1, box2)
+    bbox.rowmin = round(abs(min([box1.rowmin box2.rowmin])));
+    bbox.colmin = round(abs(min([box1.colmin box2.colmin])));
+    bbox.rowmax = round(max([box1.rowmax box2.rowmax]));
+    bbox.colmax = round(max([box1.colmax box2.colmax]));
+end
