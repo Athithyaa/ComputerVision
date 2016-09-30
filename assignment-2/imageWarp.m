@@ -31,6 +31,36 @@ function output = imageWarp(image1, image2, H)
     % get the bounding box for the image1 and image2
     bbox = getBoundingBox(box1, box2); 
     
+    % Without using meshgrid and interp2.
+    rowoff = 0;
+    coloff = 0;
+    if bbox.rowmin < 0
+        rowoff = -bbox.rowmin + 1;
+    end
+    if bbox.colmin < 0
+        coloff = -bbox.colmin + 1;
+    end
+    
+    output = zeros(bbox.rowmax + (rowoff), bbox.colmax + (coloff), 3, class(image1));
+    
+    output(box2.rowmin+rowoff:box2.rowmin+rowoff+row2-1, box2.colmin+coloff:box2.colmin+coloff+col2-1, :) = image2(1:row2, 1:col2, :);
+   
+    for r = ceil(box1.rowmin) : ceil(box1.rowmax)
+        for c = ceil(box1.colmin) : ceil(box1.colmax)
+            hcoord = H \ [r c 1]';
+            hcoord = ceil(hcoord / hcoord(3));
+            
+            xr = hcoord(1);
+            yc = hcoord(2);
+            
+            if xr > 1 && yc > 1 && xr < row1 && yc < col1
+                %fprintf('%d %d %d %d\n', xr, yc, r, c);
+                output(r+rowoff, c+coloff, : ) = image1(xr, yc, :);
+            end            
+        end
+    end
+    
+    %{
     [colmat, rowmat] = meshgrid(1-bbox.colmin:bbox.colmax, 1-bbox.rowmin:bbox.rowmax);
     [rows, cols] = size(rowmat);    
 
@@ -56,11 +86,12 @@ function output = imageWarp(image1, image2, H)
     
     output(bbox.rowmin+1:bbox.rowmin+row2, ...
         bbox.colmin+1:bbox.colmin+col2, :) = image2(1:row2, 1:col2, :);
+    %}
 end
 
 function bbox = getBoundingBox(box1, box2)
-    bbox.rowmin = round(abs(min([box1.rowmin box2.rowmin])));
-    bbox.colmin = round(abs(min([box1.colmin box2.colmin])));
+    bbox.rowmin = round((min([box1.rowmin box2.rowmin])));
+    bbox.colmin = round((min([box1.colmin box2.colmin])));
     bbox.rowmax = round(max([box1.rowmax box2.rowmax]));
     bbox.colmax = round(max([box1.colmax box2.colmax]));
 end
