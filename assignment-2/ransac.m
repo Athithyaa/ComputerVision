@@ -4,49 +4,52 @@
 % Assignment: 2
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function H = ransac(image1, image2)
+function [Count, H] = ransac(image1, image2)
+    % Find SIFT keypoints for each image
+    [~, des1, loc1] = sift(image1);
+    [~, des2, loc2] = sift(image2);
 
-% Find SIFT keypoints for each image
-[im1, des1, loc1] = sift(image1);
-[im2, des2, loc2] = sift(image2);
+    score = getMatchScore(des1, des2);
+    [pts1, pts2] = getMatchPoints(loc1, loc2, score);
+    
+    bestFit = 0;
+    numIter = 100;
+    tolerance = 1;
+    % assuming there are equal number of points in pts1, pts2
+    % otherwise use min(size(pts,1), size(pts2,1)
+    nPoints = size(pts1, 1);
+    
+    for i = 1:numIter
+        % we need 4 points to generate homography. Randomly generate 4
+        % indices for getting 4 points
+        indices = randi(nPoints, 10, 1);
+        p1 = pts1(indices, :);
+        p2 = pts2(indices, :);
+        
+        % compute homography for the subset of points
+        h = computeHomography(p1, p2);
+        
+        % transform the p1 points to p2 frame of reference.
+        % Use homography matrix p2 = h*p1
+        xs = p1(:,1);
+        ys = p1(:,2);
+        % create matrix and then multiply rather than doing individually.
+        tx = ( h(1,1)*xs + h(1,2)*ys + h(1,3) ) ./ ...
+              ( h(3,1)*xs + h(3,2)*ys + h(3,3) );
 
-% For efficiency in Matlab, it is cheaper to compute dot products between
-%  unit vectors rather than Euclidean distances.  Note that the ratio of 
-%  angles (acos of dot products of unit vectors) is a close approximation
-%  to the ratio of Euclidean distances for small angles.
-%
-% distRatio: Only keep matches in which the ratio of vector angles from the
-%   nearest to second nearest neighbor is less than distRatio.
-distRatio = 0.6;   
-
-% For each descriptor in the first image, select its match to second image.
-des2t = des2';                          % Precompute matrix transpose
-for i = 1 : size(des1,1)
-   dotprods = des1(i,:) * des2t;        % Computes vector of dot products
-   [vals,indx] = sort(acos(dotprods));  % Take inverse cosine and sort results
-
-   % Check if nearest neighbor has angle less than distRatio times 2nd.
-   if (vals(1) < distRatio * vals(2))
-      match(i) = indx(1);
-   else
-      match(i) = 0;
-   end
-end
-
-cols1 = size(im1,2);
-
-pts1 = zeros(sum(match>0)/2, 2);
-pts2 = zeros(sum(match>0)/2, 2);
-
-for i = 1: size(des1,1)
-  if (match(i) > 0)
-      pts1(i,:) = [loc1(i,2) loc1(i,1)];
-      pts2(i,:) = [loc2(match(i),2)+cols1 loc2(match(i),1)];
-  end
-end
-
-pts1(~any(pts1), :) = [];
-pts2(~any(pts2), :) = [];
-
-
+        ty = ( h(2,1)*xs + h(2,2)*ys + h(2,3) ) ./ ...
+              ( h(3,1)*xs + h(3,2)*ys + h(3,3) );
+        tp1 = [tx, ty];
+        
+        % compute least squared distance.
+        lsd = ((p2(:,1) - tp1(:,1)).^2 + (p2(:,2) - tp1(:,2)).^2).^(0.5);
+        
+        
+        fit = length(find(lsd < tolerance));
+        if fit > bestFit
+            bestFit = fit;
+            Count = bestFit;
+            H = h;
+        end
+    end
 end
