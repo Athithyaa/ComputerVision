@@ -6,8 +6,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Count, H] = ransac(image1, image2)
     % Find SIFT keypoints for each image
-    [~, des1, loc1] = sift(image1);
-    [~, des2, loc2] = sift(image2);
+    imwrite(image1, 'temp1.pgm');
+    imwrite(image2, 'temp2.pgm');
+    [~, des1, loc1] = sift('temp1.pgm');
+    [~, des2, loc2] = sift('temp2.pgm');
 
     score = getMatchScore(des1, des2);
     [pts1, pts2] = getMatchPoints(loc1, loc2, score);
@@ -43,7 +45,6 @@ function [Count, H] = ransac(image1, image2)
         
         % compute least squared distance.
         lsd = ((p2(:,1) - tp1(:,1)).^2 + (p2(:,2) - tp1(:,2)).^2).^(0.5);
-        
         
         fit = length(find(lsd < tolerance));
         if fit > bestFit
