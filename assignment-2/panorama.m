@@ -52,7 +52,7 @@ switch choice
         imwrite(output, 'mosaic.jpg');
         
     case 3 % RANSAC
-        H = ransac(image1, image2);
+        [fit, H] = ransac(image1, image2);
         output = imageWarp(image1, image2, H, 'MOSAIC');
         imwrite(output, 'ransac.jpg');
         
