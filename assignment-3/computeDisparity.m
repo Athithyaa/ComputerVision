@@ -1,67 +1,91 @@
-function disparityMap = computeDisparity(leftImage, rightImage, windowSize, algorithm)
+function disparityMap = computeDisparity(leftImage, rightImage, wsize, algorithm)
     % left and right iamges are assumed to be gray scale or converted to
     % it.
     [rows, cols] = size(leftImage);
-    % [rowsRight, colsRight] = size(rightImage);
-    
-    leftImage = im2double(leftImage);
-    rightImage = im2double(rightImage);
-    
-    if (mod(windowSize, 2) == 0)
-        error('window size must be odd')
-    end
-    
-    weights = 1;
-    if windowSize > 1
-        % use gaussian weights
-        weights  = fspecial('gaussian', [windowSize, windowSize]);
-    end
-    
-    % disparity search range
-    min = -6;
-    max = 10;
     
     % create a disparity mpa
     disparityMap = zeros(rows, cols);
     
-    hSize = floor(windowSize / 2); % size = 2*i + 1
+    pad = (wsize - 1)/2;
+    % pad left and right images and convert to double
+    leftImage = im2double(padImage(leftImage, pad));
+    rightImage = im2double(padImage(rightImage, pad));
     
-    for r = (1+hSize : rows-hSize)
-        for c = (1+hSize+abs(min) : cols-hSize-max)
-            bestFit = 99999;
+    if (mod(wsize, 2) == 0)
+        error('window size must be odd')
+    end
+    
+    weights = 1;
+    if wsize > 1
+        % use gaussian weights
+        weights  = fspecial('gaussian', [wsize, wsize]);
+    end
+    
+    % disparity search range
+    min = 0;
+    max = 64;
+    
+    [~, scol, ~] = size(rightImage);
+    
+    for r = 1:rows
+        for c = 1:cols
+            
+            bestFit = -99999;
+            if strcmp(algorithm, 'SSD')
+                bestFit = 99999;
+            end
+            
             offset = 0;
+            leftBlock = leftImage(r:r+2*pad, c:c+2*pad);
             
-            % take the block from left image
-            leftBlock = leftImage(r-hSize: r+hSize, c-hSize : c+hSize);
-            
-            for range = min : max
-                % take the block from right image
-                rightBlock = rightImage(r-hSize: r+hSize,...
-                    c+range-hSize : c+range+hSize);
+            for range = min:max
+                if (c+range < 1 || c+range+2*pad > scol)
+                    continue;
+                end
+                rightBlock = rightImage(r:r+2*pad, ...
+                    c+range:c+2*pad+range);
                 
                 if strcmp(algorithm, 'SSD')
                     % compute the SSD
-                    diff = (leftBlock - rightBlock).^2;
-                    conv = diff * weights;
-                    fit = sum(conv(:));
+                    leftFitler = leftBlock .* weights;
+                    rightFilter = rightBlock .* weights;
+                    diff = (leftFitler - rightFilter).^2;
+                    fit = sum(diff(:));
+                    
+                    if fit < bestFit
+                        bestFit = fit;
+                        offset = range;
+                    end
                 end
                 
                 if strcmp(algorithm, 'NCC')
                    % Compute the NCC
-                   leftSq = leftBlock.^2;
-                   rightSq = rightBlock.^2;
+                   meanLeft = mean(leftBlock(:));
+                   meanRight = mean(rightBlock(:));
+                   N = size(meanLeft, 1) * size(meanRight, 2);
                    
-                   fit = (sum(leftBlock.*rightBlock))/...
-                       (sqrt(sum(leftSq(:))*sum(sum(rightSq))));
+                   temp = (leftBlock - meanLeft).*(rightBlock - meanRight); 
+                   varleft = ((leftBlock -meanLeft).^2); 
+                   varright =((rightBlock -meanRight).^2); 
+
+                    fit = sum(temp(:))/(N*sqrt(sum(varleft(:) * sum(varright(:)))));
+                    if fit > bestFit 
+                        bestFit = fit;
+                        offset = range;
+                    end
                 end
                 
-                if fit < bestFit
-                    bestFit = fit;
-                    offset = range;
-                end
             end
             
             disparityMap(r, c) = offset;
         end
     end
+end
+
+function [image] = padImage(image, pad)
+    [rows, cols, ~] = size(image);
+    
+    % pad the image
+    image(rows+2*pad, cols+2*pad) = 0;
+    image = circshift(image, [pad pad]);
 end

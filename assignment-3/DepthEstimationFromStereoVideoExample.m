@@ -51,6 +51,9 @@ title('Rectified Video Frames');
 frameLeftGray  = rgb2gray(frameLeftRect);
 frameRightGray = rgb2gray(frameRightRect);
     
+imwrite(frameRightGray, 'right.bmp');
+imwrite(frameLeftGray, 'left.bmp');
+
 disparityMap = disparity(frameLeftGray, frameRightGray);
 figure;
 imshow(disparityMap, [0, 64]);
