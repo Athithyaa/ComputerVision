@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 3
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [outlier] = outlierMap(lr, rl, th)
     [rows, cols] = size(lr);
     

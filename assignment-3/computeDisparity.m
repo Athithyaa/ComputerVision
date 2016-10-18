@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 3
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function disparityMap = computeDisparity(leftImage, rightImage, wsize, algorithm)
     % left and right iamges are assumed to be gray scale or converted to
     % it.
@@ -6,19 +12,15 @@ function disparityMap = computeDisparity(leftImage, rightImage, wsize, algorithm
     % create a disparity mpa
     disparityMap = zeros(rows, cols);
     
-    pad = (wsize - 1)/2;
     % pad left and right images and convert to double
+    pad = (wsize - 1)/2;
     leftImage = im2double(padImage(leftImage, pad));
     rightImage = im2double(padImage(rightImage, pad));
-    
-    if (mod(wsize, 2) == 0)
-        error('window size must be odd')
-    end
     
     weights = 1;
     if wsize > 1
         % use gaussian weights
-        weights  = fspecial('gaussian', [wsize, wsize]);
+        weights = gaussianKerenel(wsize);
     end
     
     % disparity search range
@@ -88,4 +90,22 @@ function [image] = padImage(image, pad)
     % pad the image
     image(rows+2*pad, cols+2*pad) = 0;
     image = circshift(image, [pad pad]);
+end
+
+function [gKerenel] = gaussianKerenel(k)
+    h = floor(k/2);
+    sigma = .5;
+    
+    % create meshgrid
+    range = -h:h;
+    rsize = length(range);
+    x = zeros(rsize, rsize);
+    y = zeros(rsize, rsize);
+    for i = 1 : length(x)
+    	x(:, i) = range(i);
+        y(:, i) = range;
+    end
+
+    temp = (1/(2*pi*sigma^2))*exp(-(x.^2 + y.^2) / (2*sigma.^2));
+    gKerenel = temp / sum(sum(temp));
 end

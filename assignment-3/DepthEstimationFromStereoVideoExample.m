@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Name: Sunil Baliganahalli Narayana Murthy
+% Course number: CSCI 5722 - Computer Vision
+% Assignment: 3
+% Instructor: Ioana Fleming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% Depth Estimation From Stereo Video
 % This example shows how to detect people in video taken with a calibrated
 % stereo camera and determine their distances from the camera.
@@ -54,7 +61,9 @@ frameRightGray = rgb2gray(frameRightRect);
 imwrite(frameRightGray, 'right.bmp');
 imwrite(frameLeftGray, 'left.bmp');
 
-disparityMap = disparity(frameLeftGray, frameRightGray);
+disparityMap = computeDisparity(frameLeftGray,...
+    frameRightGray, 3, 'SSD');
+    %disparity(frameLeftGray, frameRightGray);
 figure;
 imshow(disparityMap, [0, 64]);
 title('Disparity Map');
@@ -64,7 +73,8 @@ colorbar
 %% Reconstruct the 3-D Scene
 % Reconstruct the 3-D world coordinates of points corresponding to each
 % pixel from the disparity map.
-points3D = reconstructScene(disparityMap, stereoParams);
+% points3D = reconstructScene(disparityMap, stereoParams);
+points3D = computeDepth(disparityMap, stereoParams);
 
 % Convert to meters and create a pointCloud object
 points3D = points3D ./ 1000;
