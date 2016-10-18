@@ -7,7 +7,8 @@
 function [point3d] = computeDepth(dmap, stereo)
     [X,Y] = meshgrid(1:1:size(dmap,2), 1:1:size(dmap, 1));
     fx = stereo.CameraParameters1.FocalLength(1);
-    flen = fx / .25;
+    sx = .25;
+    flen = fx / sx;
     p1 = stereo.CameraParameters1.PrincipalPoint;
     p2 = stereo.CameraParameters2.PrincipalPoint;
     

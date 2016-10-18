@@ -67,8 +67,8 @@ function disparityMap = computeDisparity(leftImage, rightImage, wsize, algorithm
                    N = size(meanLeft, 1) * size(meanRight, 2);
                    
                    temp = (leftBlock - meanLeft).*(rightBlock - meanRight); 
-                   varleft = ((leftBlock -meanLeft).^2); 
-                   varright =((rightBlock -meanRight).^2); 
+                   varleft = ((leftBlock - meanLeft).^2); 
+                   varright =((rightBlock - meanRight).^2); 
 
                     fit = sum(temp(:))/(N*sqrt(sum(varleft(:) * sum(varright(:)))));
                     if fit > bestFit 
