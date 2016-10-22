@@ -70,10 +70,19 @@ outliers = outlierMap(LR, RL, threshold);
 
 subplot(121);
 imshow(outliers);
-title('outlier map');
+title('outlier map using SSD window=3');
+
+LR = computeDisparity(leftIm, rightIm, wsize, 'NCC');
+RL = fliplr(computeDisparity(fliplr(rightIm), fliplr(leftIm), wsize, 'NCC'));
+threshold = 1;
+outliers = outlierMap(LR, RL, threshold);
 
 subplot(122);
-imshow(LR.*outliers==0);
-title('outliers removed from LR disparity');
+imshow(outliers);
+title('outlier map using NCC window=3');
+% subplot(122);
+% imshow(LR.*outliers==0);
+% title('outliers removed from LR disparity');
+
 % task 4
 % nothing to do

@@ -13,11 +13,11 @@ function [outlier] = outlierMap(lr, rl, th)
         for c = 1:cols
             temp = lr(r, c);
             
-            if (c-temp < 1 || c-temp > cols)
+            if (c-temp < 1 || c+temp > cols)
                 continue;
             end
             
-            if abs(temp - rl(r, c-temp)) > th
+            if abs(temp - rl(r, c+temp)) > th
                 outlier(r, c) = 1;
             end
         end
