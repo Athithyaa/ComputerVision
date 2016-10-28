@@ -1,5 +1,16 @@
 str1 = 'horseback';
 str2 = 'snowflake';
 
-result = lcs(str1, str2);
-fprintf(' %s\n', result);
+% result = lcs(str1, str2);
+% fprintf(' %s\n', result);
+
+left = imread('im2.png');
+right = imread('im6.png');
+maxDisp = 64;
+occ = 0.01;
+
+d = stereoDP(left, right, maxDisp, occ);
+mind = min(d(:));
+maxd = max(d(:));
+
+imshow(d, [mind maxd]);
