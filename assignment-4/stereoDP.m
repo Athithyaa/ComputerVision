@@ -1,7 +1,10 @@
 function [dmap] = stereoDP(left, right, maxDisp, occ)
     [rows, cols, ~] = size(left);
     dmap = zeros(rows, cols);
-
+    
+    left = im2double(left);
+    right = im2double(right);
+    
 %     use index itself as direction
 %     N = 1;
 %     NW = 2;

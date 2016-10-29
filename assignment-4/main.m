@@ -1,11 +1,16 @@
-str1 = 'horseback';
-str2 = 'snowflake';
+% task-1
 
+% str1 = 'horseback';
+% str2 = 'snowflake';
 % result = lcs(str1, str2);
 % fprintf(' %s\n', result);
 
-left = rgb2gray(imread('tim2.png'));
-right = rgb2gray(imread('tim6.png'));
+% task-2
+% left = rgb2gray(imread('stereo-pairs/tsukuba/imL.png'));
+% right = rgb2gray(imread('stereo-pairs/tsukuba/imR.png'));
+left = imread('sr.pgm');
+right = imread('sl.pgm');
+
 maxDisp = 64;
 occ = 0.01;
 
