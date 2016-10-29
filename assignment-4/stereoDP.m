@@ -35,30 +35,26 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         end
 
         % now use D to fill disparity map
-        i = rows;
+        i = cols;
         j = cols;
         
         %fprintf('%d %d\n', i, j);
-        
         while(i ~= 1 && j ~= 1)
             % fprintf('i= %d j = %d\n', i, j);
             switch(Dir(i+1, j+1))
                 case 1 % north west direction
                     % left pixel matches right pixel
                     % fprintf('match');
-                    dmap(row, j) = abs(j-i);
+                    dmap(row, j) = abs(i-j);
                     i = i-1;
                     j = j-1;
-                    
                 case 2 % north
                     % left pixel is unmatched
-                    %fprintf('no left match');
-                    j = j-1;
-                case 3 % west
-                    % right pixel is unmatched
-                    %fprintf('no right match');
-                    % dmap(row, j) = pval;
+                    dmap(row, j) = NaN;
                     i = i-1;
+                case 3 % west
+                    % right pixel is unmatched                    
+                    j = j-1;
             end
         end
     end
@@ -69,6 +65,6 @@ function [cost] = costMatrix(Il, Ir)
     cost = zeros(n, n);
     
     for i = 1:n
-        cost(i, :) = (Ir-Il(i)).^2;
+        cost(i, :) = (Il - Ir(i)).^2;
     end
 end
