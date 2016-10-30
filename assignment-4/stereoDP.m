@@ -54,7 +54,6 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
             switch(Dir(i+1, j+1))
                 case 1 % north west direction
                     % left pixel matches right pixel
-                    % fprintf('match');
                     dmap(row, j) = abs(i-j);
                     i = i-1;
                     j = j-1;

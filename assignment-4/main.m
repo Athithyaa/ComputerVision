@@ -13,10 +13,8 @@
 % fprintf(' %s\n', result);
 
 % task-2
-% left = rgb2gray(imread('stereo-pairs/tsukuba/imL.png'));
-% right = rgb2gray(imread('stereo-pairs/tsukuba/imR.png'));
-left = imread('sr.pgm');
-right = imread('sl.pgm');
+left = rgb2gray(imread('stereo-pairs/tsukuba/imL.png'));
+right = rgb2gray(imread('stereo-pairs/tsukuba/imR.png'));
 
 maxDisp = 64;
 occ = 0.01;
@@ -25,4 +23,8 @@ d = stereoDP(left, right, maxDisp, occ);
 mind = min(d(:));
 maxd = max(d(:));
 
+subplot(121);
 imshow(d, [mind maxd]);
+
+subplot(122);
+display_dmap(d);
