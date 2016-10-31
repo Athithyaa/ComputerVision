@@ -7,14 +7,14 @@
 
 % task-1
 
-% str1 = 'horseback';
-% str2 = 'snowflake';
-% result = lcs(str1, str2);
-% fprintf(' %s\n', result);
+str1 = 'horseback';
+str2 = 'snowflake';
+result = lcs(str1, str2);
+fprintf(' %s\n', result);
 
 % task-2
-left = rgb2gray(imread('stereo-pairs/tsukuba/imL.png'));
-right = rgb2gray(imread('stereo-pairs/tsukuba/imR.png'));
+left = imreadgray('stereo-pairs/tsukuba/imL.png');
+right = imreadgray('stereo-pairs/tsukuba/imR.png');
 
 maxDisp = 64;
 occ = 0.01;

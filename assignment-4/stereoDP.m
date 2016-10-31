@@ -22,7 +22,10 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         Il = left(row,:);
         Ir = right(row, :);
         
-        d = costMatrix(Il, Ir);
+        %d = costMatrixSD(Il, Ir);
+        d = costMatrixSSD(left, right, 3, row);
+        %d = costMatrixNCC(left, right, 3, row);
+        
         D = zeros(cols+1, cols+1);
         Dir = zeros(cols+1, cols+1);
         
@@ -69,11 +72,102 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
     end
 end
 
-function [cost] = costMatrix(Il, Ir)
+function [cost] = costMatrixSD(Il, Ir)
     n = size(Il, 2);
     cost = zeros(n, n);
     
-    for i = 1:n
-        cost(i, :) = (Il - Ir(i)).^2;
+    % compute squared difference
+     for i = 1:n
+            cost(i, :) = (Il - Ir(i)).^2;
+     end 
+end
+
+function [cost] = costMatrixSSD(left, right, wsize, row)
+    n = size(left, 2);
+    cost = zeros(n, n);
+
+    % pad the image and compute SSD or NCC
+    pad = (wsize - 1)/2;
+    left = im2double(padImage(left, pad));
+    right = im2double(padImage(right, pad));
+    
+    weights = 1;
+    if wsize > 1
+        % use gaussian weights
+        weights = gaussianKerenel(wsize);
     end
+    
+    Il = left(row+pad-1:row+pad+1, :);
+    Ir = right(row+pad-1:row+pad+1, :);
+    
+    for i = 1:n
+        lref = Il(:, i+pad-1:i+pad+1);
+        for j = 1:n
+            rref = Ir(:, j+pad-1:j+pad+1);
+            
+            lf = lref .* weights;
+            rf = rref .* weights;
+            diff = (lf - rf).^2;
+            ssd = sum(diff(:));
+            
+            cost(i, j) = ssd;
+        end
+    end
+end
+
+function [cost] = costMatrixNCC(left, right, wsize, row)
+    n = size(left, 2);
+    cost = zeros(n, n);
+
+    % pad the image and compute SSD or NCC
+    pad = (wsize - 1)/2;
+    left = im2double(padImage(left, pad));
+    right = im2double(padImage(right, pad));
+    
+    Il = left(row+pad-1:row+pad+1, :);
+    Ir = right(row+pad-1:row+pad+1, :);
+    
+    for i = 1:n
+        lref = Il(:, i+pad-1:i+pad+1);
+        for j = 1:n
+            rref = Ir(:, j+pad-1:j+pad+1);
+            
+            meanLeft = mean(lref(:));
+            meanRight = mean(rref(:));
+            N = size(meanLeft, 1) * size(meanRight, 2);
+            
+            temp = (lref - meanLeft).*(rref - meanRight); 
+            varleft = ((lref - meanLeft).^2); 
+            varright =((rref - meanRight).^2); 
+            ncc = sum(temp(:))/(N*sqrt(sum(varleft(:) * sum(varright(:)))));
+            
+            cost(i, j) = ncc;
+        end
+    end
+end
+
+function [image] = padImage(image, pad)
+    [rows, cols, ~] = size(image);
+    
+    % pad the image
+    image(rows+2*pad, cols+2*pad) = 0;
+    image = circshift(image, [pad pad]);
+end
+
+function [gKerenel] = gaussianKerenel(k)
+    h = floor(k/2);
+    sigma = .5;
+    
+    % create meshgrid
+    range = -h:h;
+    rsize = length(range);
+    x = zeros(rsize, rsize);
+    y = zeros(rsize, rsize);
+    for i = 1 : length(x)
+    	x(:, i) = range(i);
+        y(:, i) = range;
+    end
+
+    temp = (1/(2*pi*sigma^2))*exp(-(x.^2 + y.^2) / (2*sigma.^2));
+    gKerenel = temp / sum(sum(temp));
 end
