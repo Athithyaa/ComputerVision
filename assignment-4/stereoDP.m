@@ -22,8 +22,8 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         Il = left(row,:);
         Ir = right(row, :);      
         
-        d = costMatrixSD(Il, Ir);
-        %d = costMatrixSSD(left, right, 3, row);
+        %d = costMatrixSD(Il, Ir);
+        d = costMatrixSSD(left, right, 5, row);
         %d = costMatrixNCC(left, right, 3, row);
         
         D = zeros(cols+1, cols+1);
@@ -95,7 +95,8 @@ function [cost] = costMatrixSD(Il, Ir)
     
     % compute squared difference
      for i = 1:n
-            cost(i, :) = (Il - Ir(i)).^2;
+         cost(i, :) = (Ir - Il(i)).^2;
+         % cost(i, :) = (Il - Ir(i)).^2;
      end 
 end
 
@@ -114,17 +115,17 @@ function [cost] = costMatrixSSD(left, right, wsize, row)
         weights = gaussianKerenel(wsize);
     end
     
-    Il = left(row+pad-1:row+pad+1, :);
-    Ir = right(row+pad-1:row+pad+1, :);
+    Il = left(row:row+2*pad, :);
+    Ir = right(row:row+2*pad, :);
     
     for i = 1:n
-        lref = Il(:, i+pad-1:i+pad+1);
+        lref = Il(:, i:i+2*pad);
         for j = 1:n
-            rref = Ir(:, j+pad-1:j+pad+1);
+            rref = Ir(:, j:j+2*pad);
             
             lf = lref .* weights;
             rf = rref .* weights;
-            diff = (lf - rf).^2;
+            diff = (rf - lf).^2;
             ssd = sum(diff(:));
             
             cost(i, j) = ssd;
