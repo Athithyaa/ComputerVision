@@ -25,6 +25,8 @@ maxd = max(d(:));
 
 subplot(121);
 imshow(d, [mind maxd]);
+title('Disparity map');
 
 subplot(122);
 display_dmap(d);
+title('Disparity map with NaN pixels set to red');

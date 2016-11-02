@@ -22,8 +22,8 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         Il = left(row,:);
         Ir = right(row, :);      
         
-        %d = costMatrixSD(Il, Ir);
-        d = costMatrixSSD(left, right, 5, row);
+        d = costMatrixSD(Il, Ir);
+        %d = costMatrixSSD(left, right, 5, row);
         %d = costMatrixNCC(left, right, 3, row);
         
         D = zeros(cols+1, cols+1);
