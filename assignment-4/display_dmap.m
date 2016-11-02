@@ -6,10 +6,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [dcolor] = display_dmap(dmap)
-    maxd = max(dmap(:));
-    mind = min(dmap(:));
+    maxd = nanmax(dmap(:));
+    mind = nanmin(dmap(:));
 
-    ndmap = (dmap-mind)/(maxd-mind);
+    ndmap = double(dmap-mind)./double(maxd-mind);
 
 %     dcolor = repmat(ndmap, 1, 1, 3);
 % 
@@ -21,14 +21,14 @@ function [dcolor] = display_dmap(dmap)
 %     dcolor(isnan(dcolor(:,:,2))) = 0;
 %     dcolor(isnan(dcolor(:,:,3))) = 0;
     
-    m1 = ndmap;
-    m2 = ndmap;
-    m3 = ndmap;
+    red = ndmap;
+    green = ndmap;
+    blue = ndmap;
     
-    m1(isnan(m1(:,:,1))) = 1;
-    m2(isnan(m2(:,:,1))) = 0;
-    m3(isnan(m3(:,:,1))) = 0;
-    dcolor = cat(3, m1, m2, m3);
+    red(isnan(red(:,:,1))) = 1;
+    green(isnan(green(:,:,1))) = 0;
+    blue(isnan(blue(:,:,1))) = 0;
+    dcolor = cat(3, red, green, blue);
     
     imshow(dcolor);
 end

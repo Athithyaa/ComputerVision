@@ -11,19 +11,19 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
     
     left = im2double(left);
     right = im2double(right);
-    
+
 %     use index itself as direction
 %     N = 1;
 %     NW = 2;
 %     W = 3;
-  
+    
     for row = 1:rows
         fprintf('row = %d \n', row);
         Il = left(row,:);
-        Ir = right(row, :);
+        Ir = right(row, :);      
         
-        %d = costMatrixSD(Il, Ir);
-        d = costMatrixSSD(left, right, 3, row);
+        d = costMatrixSD(Il, Ir);
+        %d = costMatrixSSD(left, right, 3, row);
         %d = costMatrixNCC(left, right, 3, row);
         
         D = zeros(cols+1, cols+1);
@@ -34,19 +34,18 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         D(2, 2) = d(1, 1);
                
         for i = 2:cols+1
-            %fprintf('row = %d\n', i);
+            % fprintf('row = %d\n', i);
             for j = 2:cols+1
                 % fprintf('i=%d j=%d [%d %d, %d %d, %d %d]\n', i, j, size(D), size(Dir), size(d));
                 if i == 2 && j == 2
                     continue;
                 end
-                
-                [D(i, j), Dir(i, j)] = min([D(i-1, j-1)+d(i-1, j-1), ...
+                [D(i, j), Dir(i, j)] = mina(D(i-1, j-1) + d(i-1, j-1), ...
                               D(i-1, j) + occ, ...
-                              D(i, j-1) + occ]);
+                              D(i, j-1) + occ);
             end
         end
-
+        
         % now use D to fill disparity map
         i = cols;
         j = cols;
@@ -57,12 +56,12 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
             switch(Dir(i+1, j+1))
                 case 1 % north west direction
                     % left pixel matches right pixel
-                    dmap(row, j) = abs(i-j);
+                    dmap(row, i) = abs(i-j);
                     i = i-1;
                     j = j-1;
                 case 2 % north
                     % left pixel is unmatched
-                    dmap(row, j) = NaN;
+                    dmap(row, i) = nan;
                     i = i-1;
                 case 3 % west
                     % right pixel is unmatched                    
@@ -71,6 +70,24 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         end
     end
 end
+
+function [val, ind] = mina(a, b, c)
+    if a < b && a < c
+        val = a;
+        ind = 1;
+        return;
+    end
+    
+    if b < c && b < a
+        val = b;
+        ind = 2;
+        return;
+    end
+    
+    val = c;
+    ind = 3;
+end
+
 
 function [cost] = costMatrixSD(Il, Ir)
     n = size(Il, 2);

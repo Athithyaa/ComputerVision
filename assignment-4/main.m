@@ -13,8 +13,8 @@ result = lcs(str1, str2);
 fprintf(' %s\n', result);
 
 % task-2
-left = imreadgray('stereo-pairs/tsukuba/imL.png');
-right = imreadgray('stereo-pairs/tsukuba/imR.png');
+left = imreadgray('stereo-pairs/tsukuba/imR.png');
+right = imreadgray('stereo-pairs/tsukuba/imL.png');
 
 maxDisp = 64;
 occ = 0.01;
