@@ -17,14 +17,14 @@ result = lcs(str1, str2);
 fprintf(' %s\n', result);
 
 % task-2
-left = imreadgray('stereo-pairs/cones/imL.png');
-right = imreadgray('stereo-pairs/cones/imR.png');
+left = imreadgray('stereo-pairs/teddy/imL.png');
+right = imreadgray('stereo-pairs/teddy/imR.png');
 
 maxDisp = 64;
 occ = 0.01;
 
-wsize = 5;
-method = 'NCC'; % Possible methods are : SD, SSD and NCC
+wsize = 3;
+method = 'SD'; % Possible methods are : SD, SSD and NCC
 d = stereoDP(left, right, maxDisp, occ, method, wsize);
 mind = min(d(:));
 maxd = max(d(:));
