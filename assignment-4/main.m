@@ -10,20 +10,22 @@
 str1 = 'horseback';
 str2 = 'snowflake';
 
-str1 = 'thisisatest';
-str2 = 'testing123testing';
+% str1 = 'thisisatest';
+% str2 = 'testing123testing';
 
 result = lcs(str1, str2);
 fprintf(' %s\n', result);
 
 % task-2
-left = imreadgray('stereo-pairs/teddy/imL.png');
-right = imreadgray('stereo-pairs/teddy/imR.png');
+left = imreadgray('stereo-pairs/cones/imL.png');
+right = imreadgray('stereo-pairs/cones/imR.png');
 
 maxDisp = 64;
 occ = 0.01;
 
-d = stereoDP(left, right, maxDisp, occ);
+wsize = 3;
+method = 'NCC'; % Possible methods are : SD, SSD and NCC
+d = stereoDP(left, right, maxDisp, occ, method, wsize);
 mind = min(d(:));
 maxd = max(d(:));
 

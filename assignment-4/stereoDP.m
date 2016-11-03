@@ -5,7 +5,7 @@
 % Instructor: Ioana Fleming
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [dmap] = stereoDP(left, right, maxDisp, occ)
+function [dmap] = stereoDP(left, right, maxDisp, occ, method, wsize)
     [rows, cols, ~] = size(left);
     dmap = zeros(rows, cols);
     
@@ -22,9 +22,13 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
         Il = left(row,:);
         Ir = right(row, :);      
         
-        d = costMatrixSD(Il, Ir);
-        %d = costMatrixSSD(left, right, 5, row);
-        %d = costMatrixNCC(left, right, 3, row);
+        if strcmp(method, 'SD')
+            d = costMatrixSD(Il, Ir);
+        elseif strcmp(method, 'SSD')
+            d = costMatrixSSD(left, right, wsize, row);
+        elseif strcmp(method, 'NCC')
+            d = costMatrixNCC(left, right, wsize, row);
+        end
         
         D = zeros(cols+1, cols+1);
         Dir = zeros(cols+1, cols+1);
@@ -40,9 +44,15 @@ function [dmap] = stereoDP(left, right, maxDisp, occ)
                 if i == 2 && j == 2
                     continue;
                 end
-                [D(i, j), Dir(i, j)] = mina(D(i-1, j-1) + d(i-1, j-1), ...
+                if strcmp(method, 'NCC')
+                    [D(i, j), Dir(i, j)] = maxa(D(i-1, j-1) + d(i-1, j-1), ...
                               D(i-1, j) + occ, ...
                               D(i, j-1) + occ);
+                else
+                    [D(i, j), Dir(i, j)] = mina(D(i-1, j-1) + d(i-1, j-1), ...
+                              D(i-1, j) + occ, ...
+                              D(i, j-1) + occ);
+                end
             end
         end
         
@@ -88,6 +98,22 @@ function [val, ind] = mina(a, b, c)
     ind = 3;
 end
 
+function [val, ind] = maxa(a, b, c)
+    if a > b && a > c
+        val = a;
+        ind = 1;
+        return;
+    end
+    
+    if b > c && b > a
+        val = b;
+        ind = 2;
+        return;
+    end
+    
+    val = c;
+    ind = 3;
+end
 
 function [cost] = costMatrixSD(Il, Ir)
     n = size(Il, 2);

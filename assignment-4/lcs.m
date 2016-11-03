@@ -11,7 +11,7 @@ function [result] = lcs(str1, str2)
     
     dp = zeros(len1+1, len2+1);
     dir = zeros(len1, len2);
-    
+
     dp(1,:) = 0;
     dp(:, 1) = 0;
     
