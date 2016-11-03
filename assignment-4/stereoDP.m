@@ -9,8 +9,8 @@ function [dmap] = stereoDP(left, right, maxDisp, occ, method, wsize)
     [rows, cols, ~] = size(left);
     dmap = zeros(rows, cols);
     
-    left = im2double(left);
-    right = im2double(right);
+    left = normalize(im2double(left));
+    right = normalize(im2double(right));
 
 %     use index itself as direction
 %     N = 1;
@@ -18,11 +18,11 @@ function [dmap] = stereoDP(left, right, maxDisp, occ, method, wsize)
 %     W = 3;
     
     for row = 1:rows
-        fprintf('row = %d \n', row);
-        Il = left(row,:);
-        Ir = right(row, :);      
+        fprintf('row = %d \n', row);    
         
         if strcmp(method, 'SD')
+            Il = left(row,:);
+            Ir = right(row, :);  
             d = costMatrixSD(Il, Ir);
         elseif strcmp(method, 'SSD')
             d = costMatrixSSD(left, right, wsize, row);
@@ -168,22 +168,22 @@ function [cost] = costMatrixNCC(left, right, wsize, row)
     left = im2double(padImage(left, pad));
     right = im2double(padImage(right, pad));
     
-    Il = left(row+pad-1:row+pad+1, :);
-    Ir = right(row+pad-1:row+pad+1, :);
+    Il = left(row:row+2*pad, :);
+    Ir = right(row:row+2*pad, :);
     
     for i = 1:n
-        lref = Il(:, i+pad-1:i+pad+1);
+        lref = Il(:, i:i+2*pad);
         for j = 1:n
-            rref = Ir(:, j+pad-1:j+pad+1);
+            rref = Ir(:, j:j+2*pad);
             
             meanLeft = mean(lref(:));
             meanRight = mean(rref(:));
-            N = size(meanLeft, 1) * size(meanRight, 2);
+            N = numel(lref)*numel(rref);
             
             temp = (lref - meanLeft).*(rref - meanRight); 
             varleft = ((lref - meanLeft).^2); 
-            varright =((rref - meanRight).^2); 
-            ncc = sum(temp(:))/(N*sqrt(sum(varleft(:) * sum(varright(:)))));
+            varright =((rref - meanRight).^2);
+            ncc = sum(temp(:))/(N*sqrt(sum(varleft(:)) * sum(varright(:))));
             
             cost(i, j) = ncc;
         end
@@ -196,6 +196,14 @@ function [image] = padImage(image, pad)
     % pad the image
     image(rows+2*pad, cols+2*pad) = 0;
     image = circshift(image, [pad pad]);
+end
+
+function [image] = normalize(image)
+    maxd = max(image(:));
+    mind = min(image(:));
+    
+    image = image-mind;
+    image = image./(maxd-mind);
 end
 
 function [gKerenel] = gaussianKerenel(k)
