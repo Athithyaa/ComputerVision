@@ -9,12 +9,16 @@
 
 str1 = 'horseback';
 str2 = 'snowflake';
+
+str1 = 'thisisatest';
+str2 = 'testing123testing';
+
 result = lcs(str1, str2);
 fprintf(' %s\n', result);
 
 % task-2
-left = imreadgray('stereo-pairs/tsukuba/imL.png');
-right = imreadgray('stereo-pairs/tsukuba/imR.png');
+left = imreadgray('stereo-pairs/teddy/imL.png');
+right = imreadgray('stereo-pairs/teddy/imR.png');
 
 maxDisp = 64;
 occ = 0.01;
