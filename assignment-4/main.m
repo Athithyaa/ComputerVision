@@ -23,7 +23,7 @@ right = imreadgray('stereo-pairs/cones/imR.png');
 maxDisp = 64;
 occ = 0.01;
 
-wsize = 3;
+wsize = 5;
 method = 'NCC'; % Possible methods are : SD, SSD and NCC
 d = stereoDP(left, right, maxDisp, occ, method, wsize);
 mind = min(d(:));

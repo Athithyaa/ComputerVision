@@ -178,12 +178,11 @@ function [cost] = costMatrixNCC(left, right, wsize, row)
             
             meanLeft = mean(lref(:));
             meanRight = mean(rref(:));
-            N = numel(lref)*numel(rref);
             
             temp = (lref - meanLeft).*(rref - meanRight); 
             varleft = ((lref - meanLeft).^2); 
             varright =((rref - meanRight).^2);
-            ncc = sum(temp(:))/(N*sqrt(sum(varleft(:)) * sum(varright(:))));
+            ncc = sum(temp(:))/(sqrt(sum(varleft(:)) * sum(varright(:))));
             
             cost(i, j) = ncc;
         end
