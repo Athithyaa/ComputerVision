@@ -13,7 +13,7 @@ print('image datatype = ', img.dtype)
 b, g, r = cv2.split(img)
 m = cv2.merge((b, g, r))
 
-# superimpose
+# superimpose or image blending
 k = img + img2[0:288, 0:384,:]
 k = cv2.addWeighted(img, .5, img2[0:288, 0:384,:], .5, 0)
 
