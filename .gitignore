@@ -16,6 +16,9 @@ octave-workspace
 # Ignore DS_Store
 .DS_Store
 
+# ignore images folder in project folder
+./project/Images/*
+
 # temporary files for assignments
 factor.jpg
 gauss.jpg
