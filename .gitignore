@@ -17,7 +17,7 @@ octave-workspace
 .DS_Store
 
 # ignore images folder in project folder
-./project/Images/*
+project/Images/*
 
 # temporary files for assignments
 factor.jpg
