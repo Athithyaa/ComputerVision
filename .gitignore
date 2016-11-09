@@ -18,6 +18,10 @@ octave-workspace
 
 # ignore images folder in project folder
 project/Images/*
+project/test/*
+
+# ignore pickle files
+*.p
 
 # temporary files for assignments
 factor.jpg
