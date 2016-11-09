@@ -27,21 +27,24 @@ for root, dirs, files in os.walk(imgPath):
             if not folder:
                 folder = currFolder;
 
+            siftDir = os.path.join(siftFolder, currFolder);
+            if not os.path.exists(siftDir):
+                os.makedirs(siftDir)
+
             fpath = os.path.join(root, name)
-            print('Processing file ...', fpath)
+            print('Processing image file ...', fpath)
             img = cv2.imread(fpath)
             print(img.shape)
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
             kp, desc = sift.detectAndCompute(gray, None)
             
-            if currFolder != folder:
-                with open(os.path.join(siftFolder, folder + '.p', 'wb')) as dumpFile:
-                    pickle.dump(features, dumpFile)
-                features = np.empty((0, 128))
-                folder = currFolder
-
             features = np.vstack((features, desc))
+            with open(os.path.join(siftDir, name + '.p'), 'wb') as dumpFile:
+                    pickle.dump(features, dumpFile)
+            
+            features = np.empty((0, 128))
+            folder = currFolder
 
             print('-------')
         except Exception as e:
