@@ -22,6 +22,8 @@ project/test/*
 
 # ignore pickle files
 *.p
+*.npy
+*.pkl
 
 # temporary files for assignments
 factor.jpg
