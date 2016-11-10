@@ -22,8 +22,8 @@ siftPath = './SIFT/'
 wordDist = np.empty((0, clusters))
 categories = []
 
-mbk = joblib.load('kmeans_v1.pkl') 
-clf = joblib.load('randomForest_v1.pkl')
+mbk = joblib.load('./models/kmeans_v1.pkl') 
+clf = joblib.load('./models/randomForest_v1.pkl')
 
 total = float()
 correct = float()

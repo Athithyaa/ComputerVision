@@ -55,4 +55,4 @@ del features
 
 
 # dump the model
-joblib.dump(mbk, 'kmeans_v1.pkl')
+joblib.dump(mbk, './models/kmeans_v1.pkl')
