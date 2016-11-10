@@ -22,6 +22,7 @@ project/test/*
 
 # ignore pickle files
 *.p
+projects/models/*
 *.npy
 *.pkl
 
