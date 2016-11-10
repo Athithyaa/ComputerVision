@@ -23,40 +23,7 @@ wordDist = np.empty((0, clusters))
 categories = []
 
 mbk = joblib.load('kmeans_v1.pkl') 
-
-for root, dirs, files in os.walk(siftPath):
-    readCount = 0
-    for name in files:
-        #print(root, ':', dirs, ':', name)
-        if name.startswith('.'):
-            print("Ignoring file : ", name)
-            continue
-        try:
-            category = root.split('/')[-1]
-            fpath = os.path.join(root, name)
-            print("Processing pickled file => ", fpath)
-            feature = pickle.load(open(fpath, 'rb'))
-            vlabels = mbk.predict(feature)
-            counter = collections.Counter(vlabels)
-            dist = [counter[i] for i in range(0, clusters)]
-            wordDist = np.vstack((wordDist, dist))
-            categories.append(category)
-            print("-------")
-
-            # read first n files in each folder
-            readCount += 1
-            if readCount == 100:
-                break
-        except Exception as e:
-            print("Error: ", e)
-            continue
-
-# pdb.set_trace()
-
-clf = RandomForestClassifier(n_estimators=25)
-model = clf.fit(wordDist, categories)
-
-joblib.dump(clf, 'randomForest_v1.pkl')
+clf = joblib.load('randomForest_v1.pkl')
 
 total = float()
 correct = float()
@@ -85,11 +52,5 @@ for root, dirs, files in os.walk(siftPath):
             print("Error: ", e)
             continue
 
-print("Accuracy : ", float(correct/total))
-# # testing
-# ff = pickle.load(open('./SIFT/artstudio/art_painting_studio_25_03_altavista.jpg.p', 'rb'))
-# ff = pickle.load(open('./SIFT/airport_inside/airport_inside_0605.jpg.p', 'rb'))
-# ll = mbk.predict(ff)
-# vv = collections.Counter(ll)
-# dist = [vv[i] for i in range(0, 100)]
-# clf.predict(dist)
+print("Accuracy : ", correct/total)
+print("Adjusted accuracy : ", correct-200/total-200)
