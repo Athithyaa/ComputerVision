@@ -18,9 +18,9 @@ from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 
 
-clusters = 100
+clusters = 300
 features = np.empty((0, 128))
-siftPath = './SIFT/'
+siftPath = './SIFT/test/'
 
 # find distribution of visual words over the labels 
 # and then feed it to the classifier.
@@ -49,8 +49,8 @@ for root, dirs, files in os.walk(siftPath):
             vlabels = mbk.predict(feature)
             counter = collections.Counter(vlabels)
             dist = [counter[i] for i in range(0, clusters)]
-            cat = clf.predict(dist)
-            if cat == category:
+            cat = clf.predict(dist)[0]
+            if cat.lower() == category.lower():
                 correct += 1
             print("True: ", category, " Predict: ", cat)
         except Exception as e:
@@ -59,5 +59,5 @@ for root, dirs, files in os.walk(siftPath):
 
 print("correct: ", correct, "Total: ", total)
 print("Accuracy : ", correct/total)
-print("Adjusted accuracy : ", (correct-200)/(total-200))
+# print("Adjusted accuracy : ", (correct-200)/(total-200))
 

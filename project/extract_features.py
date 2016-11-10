@@ -11,9 +11,9 @@ import cPickle as pickle
 
 import pdb
 
-imgPath = './Images/'
+imgPath = './Images/test/'
 
-siftFolder = './SIFT/'
+siftFolder = './SIFT/test/'
 min_pt = np.inf
 
 features = np.empty((0, 128))

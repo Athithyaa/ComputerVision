@@ -16,7 +16,7 @@ from sklearn.svm import SVC
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 
-clusters = 100
+clusters = 300
 features = np.empty((0, 128))
 siftPath = './SIFT/'
 # pdb.set_trace()
@@ -37,11 +37,6 @@ for root, dirs, files in os.walk(siftPath):
             feature = pickle.load(open(fpath, 'rb'))
             features = np.vstack((features, feature))
             print("-------")
-
-            # read first n files in each folder
-            readCount += 1
-            if readCount == 100:
-                break
         except Exception as e:
             continue
 
