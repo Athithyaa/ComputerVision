@@ -1,3 +1,10 @@
+""" Object recognition 
+
+Given a array of SIFT features, run clustering and extract the cluster label
+and then construct a visual word distribution for the image and classify it using 
+supervised learning model. 
+"""
+
 import cv2
 import cPickle as pickle
 import collections

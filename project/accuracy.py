@@ -1,3 +1,8 @@
+"""Accuracy of the scene detection
+
+Find the accuracy of a particular model for scene detection
+"""
+
 import cv2
 import cPickle as pickle
 import collections

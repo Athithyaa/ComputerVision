@@ -1,3 +1,8 @@
+"""Visual word clustering
+
+Given a set of visual words (SIFT descriptor points of 128 dimension), cluster 
+them using K-means. MiniBatchKmeans is much faster than regular kmeans in scikit learn.
+"""
 import cv2
 import cPickle as pickle
 import collections

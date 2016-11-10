@@ -1,3 +1,9 @@
+"""Feature extractor
+
+Extract the SIFT (Scale invarient feature transform) features from a set of given 
+image and pickle the SIFT descriptors to the file.
+"""
+
 import cv2
 import os
 import numpy as np
