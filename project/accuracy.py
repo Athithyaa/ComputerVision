@@ -52,5 +52,7 @@ for root, dirs, files in os.walk(siftPath):
             print("Error: ", e)
             continue
 
+print("correct: ", correct, "Total: ", total)
 print("Accuracy : ", correct/total)
-print("Adjusted accuracy : ", correct-200/total-200)
+print("Adjusted accuracy : ", (correct-200)/(total-200))
+
