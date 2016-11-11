@@ -7,7 +7,7 @@
 |Method | Accuracy |
 |-------|----------|
 |Bag of Visual words using SIFT(F<sub>0</sub>) | ~39% |
-|F<sub>0</sub> + Normalization   | ~41.2%    |
+|F<sub>0</sub> + Normalization of histogram  | ~41.2%    |
 |Bag of visual words using SURF + Normalization | ~56.3% |
 
 
