@@ -61,7 +61,7 @@ for root, dirs, files in os.walk(siftPath):
 
 # pdb.set_trace()
 # clf = svm.SVC()
-clf = svm.SVC(kernel='linear', verbose=True)
+clf = svm.SVC(kernel='linear', verbose=True)  # linear svm kernel gives 56% accuracy
 #clf = RandomForestClassifier(n_estimators=25)
 model = clf.fit(wordDist, categories)
 del wordDist, categories
