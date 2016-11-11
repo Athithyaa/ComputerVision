@@ -2,6 +2,7 @@
 
 Find the accuracy of a particular model for scene detection
 """
+from __future__ import print_function
 
 import cv2
 import cPickle as pickle
@@ -18,8 +19,7 @@ from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 
 
-clusters = 300
-features = np.empty((0, 128))
+clusters = 500
 siftPath = './SIFT/test/'
 
 # find distribution of visual words over the labels 
@@ -28,7 +28,7 @@ wordDist = np.empty((0, clusters))
 categories = []
 
 mbk = joblib.load('./models/kmeans_v1.pkl') 
-clf = joblib.load('./models/randomForest_v1.pkl')
+clf = joblib.load('./models/svm_v1.pkl')
 
 total = float()
 correct = float()
@@ -44,20 +44,23 @@ for root, dirs, files in os.walk(siftPath):
             total += 1
             category = root.split('/')[-1]
             fpath = os.path.join(root, name)
-            print("Processing pickled file => ", fpath)
+            print("Processing pickled file... ", fpath)
             feature = pickle.load(open(fpath, 'rb'))
             vlabels = mbk.predict(feature)
             counter = collections.Counter(vlabels)
-            dist = [counter[i] for i in range(0, clusters)]
-            cat = clf.predict(dist)[0]
+            dist = np.float64([counter[i] for i in range(0, clusters)])
+
+            # normalize visual word distribution histogram so that 
+            # image size doesn't effect bag of words model. 
+            ndist = (dist-min(dist))/(max(dist)-min(dist))
+
+            cat = clf.predict(ndist)[0]
             if cat.lower() == category.lower():
                 correct += 1
-            print("True: ", category, " Predict: ", cat)
+            print("Actual: ", category, " Prediction: ", cat, "Running accuracy = ", correct/total)
         except Exception as e:
             print("Error: ", e)
             continue
 
 print("correct: ", correct, "Total: ", total)
 print("Accuracy : ", correct/total)
-# print("Adjusted accuracy : ", (correct-200)/(total-200))
-
