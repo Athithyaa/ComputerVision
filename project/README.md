@@ -10,4 +10,4 @@
 |F<sub>0</sub> + Normalization of histogram  | ~41.2%    |
 |Bag of visual words using SURF + Normalization | ~56.3% |
 
-
+2. Technique: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
