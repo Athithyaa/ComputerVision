@@ -24,14 +24,14 @@ from sklearn.naive_bayes import GaussianNB
 
 clusters = 500
 features = np.empty((0, 128))
-siftPath = './SIFT/train/'
+siftPath = './SURF/train/'
 
 # find distribution of visual words over the labels 
 # and then feed it to the classifier.
 wordDist = np.empty((0, clusters))
 categories = []
 
-mbk = joblib.load('./models/kmeans_v1.pkl') 
+mbk = joblib.load('./models/surf-kmeans_v1.pkl') 
 
 for root, dirs, files in os.walk(siftPath):
     readCount = 0
@@ -61,12 +61,12 @@ for root, dirs, files in os.walk(siftPath):
 
 # pdb.set_trace()
 # clf = svm.SVC()
-clf = svm.SVC(verbose=True)
+clf = svm.SVC(kernel='linear', verbose=True)
 #clf = RandomForestClassifier(n_estimators=25)
 model = clf.fit(wordDist, categories)
 del wordDist, categories
 
-joblib.dump(clf, './models/svm_v1.pkl')
+joblib.dump(clf, './models/surf-svm_v1.pkl')
 
 # Neural net MLP classifier is not available in scikit learn - 0.17 yet
 # It's available in 0.18-dev version, but it's unstable.

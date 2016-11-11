@@ -20,15 +20,15 @@ from sklearn.naive_bayes import GaussianNB
 
 
 clusters = 500
-siftPath = './SIFT/test/'
+siftPath = './SURF/test/'
 
 # find distribution of visual words over the labels 
 # and then feed it to the classifier.
 wordDist = np.empty((0, clusters))
 categories = []
 
-mbk = joblib.load('./models/kmeans_v1.pkl') 
-clf = joblib.load('./models/svm_v1.pkl')
+mbk = joblib.load('./models/surf-kmeans_v1.pkl') 
+clf = joblib.load('./models/surf-svm_v1.pkl')
 
 total = float()
 correct = float()
