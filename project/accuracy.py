@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-clusters = 500
+clusters = 1000
 siftPath = './SURF/test/'
 
 # find distribution of visual words over the labels 

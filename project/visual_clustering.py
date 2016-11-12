@@ -23,7 +23,7 @@ from sklearn.lda import LDA
 
 import warnings
 
-clusters = 500
+clusters = 1000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 # pdb.set_trace()

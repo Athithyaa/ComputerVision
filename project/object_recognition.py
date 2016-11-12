@@ -22,7 +22,7 @@ from sklearn.naive_bayes import GaussianNB
 # from sklearn.neural_network import MLPClassifier
 
 
-clusters = 500
+clusters = 1000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 
