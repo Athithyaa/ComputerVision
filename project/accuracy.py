@@ -18,6 +18,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 
+import itertools
+import matplotlib.pyplot as plt
+
+from sklearn.metrics import confusion_matrix
+
 
 clusters = 500
 siftPath = './SURF/test/'
@@ -33,6 +38,9 @@ clf = joblib.load('./models/surf-svm_v1.pkl')
 total = float()
 correct = float()
 
+trueLabels = []
+predictLabels = []
+
 # test the accuracy of the model
 for root, dirs, files in os.walk(siftPath):
     for name in files:
@@ -42,7 +50,8 @@ for root, dirs, files in os.walk(siftPath):
             continue
         try:
             total += 1
-            category = root.split('/')[-1]
+            category = root.split('/')[-1].lower()
+            trueLabels.append(category)
             fpath = os.path.join(root, name)
             print("Processing pickled file... ", fpath)
             feature = pickle.load(open(fpath, 'rb'))
@@ -54,8 +63,10 @@ for root, dirs, files in os.walk(siftPath):
             # image size doesn't effect bag of words model. 
             ndist = (dist-min(dist))/(max(dist)-min(dist))
 
-            cat = clf.predict(ndist)[0]
-            if cat.lower() == category.lower():
+            cat = clf.predict(ndist)[0].lower()
+            predictLabels.append(cat)
+
+            if cat == category:
                 correct += 1
             print("Actual: ", category, " Prediction: ", cat, "Running accuracy = ", correct/total)
         except Exception as e:
@@ -64,3 +75,12 @@ for root, dirs, files in os.walk(siftPath):
 
 print("correct: ", correct, "Total: ", total)
 print("Accuracy : ", correct/total)
+
+cnf_matrix = confusion_matrix(trueLabels, predictLabels)
+class_names = list(set(trueLabels))
+
+with open('cnf_mat.pkl', 'wb') as out:
+    pickle.dump(cnf_matrix, out)
+
+with open('classes.pkl', 'wb') as out:
+    pickle.dump(class_names, out)
