@@ -9,5 +9,8 @@
 |Bag of visual words using SURF (descriptors of 64 dimension with orientation)|~44%|
 |Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
 
+### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
+![confusion_matrix](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix.png)
+
 
 * **CNN**: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
