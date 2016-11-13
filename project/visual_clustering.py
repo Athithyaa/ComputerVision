@@ -20,6 +20,8 @@ from sklearn.svm import SVC
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 from sklearn.lda import LDA
+from sklearn import mixture
+from sklearn import decomposition
 
 import warnings
 
@@ -61,6 +63,13 @@ mbk = MiniBatchKMeans(init='k-means++', n_clusters=clusters, batch_size=10000, m
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
     mbk.fit(features)
+
+# pdb.set_trace()
+# pca = decomposition.PCA(n_components=3)
+# pca.fit(features)
+# features = pca.transform(features)
+# gmm = mixture.GMM(n_components=clusters, verbose=True)
+# gmm.fit(features)
 
 # release the memory for feature points after model is predicted
 del features

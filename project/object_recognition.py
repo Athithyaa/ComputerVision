@@ -19,6 +19,7 @@ from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
+from sklearn.multiclass import OneVsRestClassifier
 # from sklearn.neural_network import MLPClassifier
 
 
@@ -61,7 +62,8 @@ for root, dirs, files in os.walk(siftPath):
 
 # pdb.set_trace()
 # clf = svm.SVC()
-clf = svm.SVC(kernel='linear', verbose=True)  # linear svm kernel gives 56% accuracy
+clf = svm.SVC(kernel='linear', verbose=True)    # linear svm kernel gives 56% accuracy
+# clf = OneVsRestClassifier(svm.SVC(kernel='linear', verbose=True))
 #clf = RandomForestClassifier(n_estimators=25)
 model = clf.fit(wordDist, categories)
 del wordDist, categories

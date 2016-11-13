@@ -24,6 +24,10 @@ folder = None
 # create SIFT feature detector
 #sift = cv2.SIFT()
 
+# compute dense SIFT
+#dense = cv2.FeatureDetector_create("Dense")
+
+
 hessianThreshold = 400 # a good value is between 300-500
 surf = cv2.SURF(400)
 surf.upright = True # don't compute orientation
@@ -49,6 +53,10 @@ for root, dirs, files in os.walk(imgPath):
             img = cv2.imread(fpath)
             # print(img.shape)
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            
+            # Compute dense SIFT
+            # kp = dense.detect(gray)
+            # kp, desc = sift.compute(gray, kp)
 
             kp, desc = surf.detectAndCompute(gray, None)
             # print("len=", len(desc[0]))
