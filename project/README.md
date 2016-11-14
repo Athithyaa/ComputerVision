@@ -4,10 +4,10 @@
 
 |Method | Accuracy |
 |-------|----------|
-|Bag of Visual words using SIFT(F<sub>0</sub>) | ~39% |
+|F<sub>0</sub>:Bag of Visual words using SIFT | ~39% |
 |F<sub>0</sub> + Normalization of histogram  | ~41.2%    |
 |Bag of visual words using SURF (descriptors of 64 dimension with orientation)|~44%|
-|Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization(F<sub>1</sub>) | ~56.3% |
+|F<sub>1</sub>: Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
 |F<sub>1</sub> + 1000 clusters | ~58% |
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
