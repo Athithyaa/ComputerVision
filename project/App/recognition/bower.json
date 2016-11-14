@@ -1,0 +1,26 @@
+{
+  "name": "recognition",
+  "homepage": "https://github.com/Sunhick/ComputerVision",
+  "authors": [
+    "Sunil <sunhick@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-bootstrap": "^2.2.0",
+    "image-picker": "^0.3.0"
+  }
+}

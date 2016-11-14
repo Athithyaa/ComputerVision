@@ -20,10 +20,12 @@ from sklearn.svm import SVC
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from sklearn.naive_bayes import GaussianNB
 from sklearn.lda import LDA
+from sklearn import mixture
+from sklearn import decomposition
 
 import warnings
 
-clusters = 1000
+clusters = 2000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 # pdb.set_trace()
@@ -57,10 +59,17 @@ print("Image count = ", imgCount, "Number of datapoints = ", len(features), "clu
 #clf = joblib.load('kmeans_v1.pkl') 
 
 # mini batch kmeans is faster
-mbk = MiniBatchKMeans(init='k-means++', n_clusters=clusters, batch_size=10000, max_no_improvement=200, verbose=True)
+mbk = MiniBatchKMeans(init='k-means++', n_clusters=clusters, batch_size=20000, max_no_improvement=300, verbose=True)
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
     mbk.fit(features)
+
+# pdb.set_trace()
+# pca = decomposition.PCA(n_components=3)
+# pca.fit(features)
+# features = pca.transform(features)
+# gmm = mixture.GMM(n_components=clusters, verbose=True)
+# gmm.fit(features)
 
 # release the memory for feature points after model is predicted
 del features

@@ -1,0 +1,94 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="http://v4.pingendo.com/assets/bootstrap/themes/default.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="static/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link href="static/lib/image-picker/image-picker/image-picker.min.js" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-cloak ng-app="recognitionApp">
+  <div class="section" ng-controller="mainController as mCtrl">
+    <div class="container" style="background:lightgray">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="display-4 p-y-1 text-primary text-xs-center">Scene Recognition</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+            <h4 class="text-xs-center"> Welcome to scene recognition project! </h4>
+        </div>
+      </div>
+
+      <br/>
+      <div class="row">
+        <div class="col-md-12">
+            <p>Select an Image</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+         <!--  <select class="image-picker show-html">
+            <option data-img-src="static/images/bed.jpg" data-img-class="first" data-img-alt="Page 1" value="1">  Page 1  </option>
+            <option data-img-src="static/images/bed.jpg" data-img-alt="Page 2" value="2">  Page 2  </option>
+            <option data-img-src="static/images/bed.jpg" data-img-alt="Page 3" value="3">  Page 3  </option>
+            <option data-img-src="static/images/bed.jpg" data-img-alt="Page 4" value="4">  Page 4  </option>
+            <option data-img-src="static/images/bed.jpg" data-img-alt="Page 5" value="5">  Page 5  </option>
+            <option data-img-src="static/images/bed.jpg" data-img-alt="Page 6" value="6">  Page 6  </option>
+          </select> -->
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+        </div>
+      </div>
+
+      <br/>
+      <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-1 text-xs-right">
+                <label class="form-control">URL:</label>
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="text" placeholder="http://">
+            </div>
+            <div class="col-md-2">
+                <button class="btn-primary form-control" ng-click="mCtrl.submit()">Submit</button>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+            <h3>Results:</h3>
+            <p> Hello Sunil {{ mCtrl.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="static/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="static/lib/angular/angular.min.js"></script>
+  <script type="text/javascript" src="static/lib/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="static/lib/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="static/lib/image-picker/image-picker/image-picker.min.js"></script>
+  <script type="text/javascript" src="static/js/mainController.js"></script>
+</body>
+
+</html>

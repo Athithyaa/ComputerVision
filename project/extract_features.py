@@ -22,10 +22,14 @@ folder = None
 
 #pdb.set_trace()
 # create SIFT feature detector
-#sift = cv2.SIFT()
+# sift = cv2.SIFT()
 
-hessianThreshold = 400 # a good value is between 300-500
-surf = cv2.SURF(400)
+# compute dense SIFT
+# dense = cv2.FeatureDetector_create("Dense")
+
+
+hessianThreshold = 300 # a good value is between 300-500
+surf = cv2.SURF(300)
 surf.upright = True # don't compute orientation
 surf.extended = True    # Extent to get 128-dim descriptors.
 
@@ -49,6 +53,10 @@ for root, dirs, files in os.walk(imgPath):
             img = cv2.imread(fpath)
             # print(img.shape)
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            
+            # Compute dense SIFT
+            # kp = dense.detect(gray)
+            # kp, desc = sift.compute(gray, kp)
 
             kp, desc = surf.detectAndCompute(gray, None)
             # print("len=", len(desc[0]))

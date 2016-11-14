@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-clusters = 1000
+clusters = 2000
 siftPath = './SURF/test/'
 
 # find distribution of visual words over the labels 
@@ -63,7 +63,7 @@ for root, dirs, files in os.walk(siftPath):
             # image size doesn't effect bag of words model. 
             ndist = (dist-min(dist))/(max(dist)-min(dist))
 
-            cat = clf.predict(ndist)[0].lower()
+            cat = clf.predict(dist)[0].lower()
             predictLabels.append(cat)
 
             if cat == category:
