@@ -31,7 +31,7 @@ updates = lasagne.updates.adam(grad, params, learning_rate=0.005)
 f_train = theano.function([X_sym, y_sym], [loss, acc], updates=updates)
 f_val = theano.function([X_sym, y_sym], [loss, acc])
 f_predict = theano.function([X_sym], pred)
-imgPath = './Images/train/'
+imgPath = './Resize/train/'
 
 X = []
 y = []

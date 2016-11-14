@@ -29,3 +29,16 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 
 * With ConvNets using Tensorflow
 ![cnn](https://github.com/Sunhick/ComputerVision/blob/master/project/output/cnn_inception.png)
+
+
+## Using Lasagne
+ 
+Lasagne is a deep learning library for python. It closely functions with theano which is similar to Tensor Flow. 
+Follow this [link](https://github.com/Lasagne/Lasagne) to read about Lasagne. [here](https://www.youtube.com/watch?v=dtGhSE1PFh0) 
+is an excellent tutorial on Theano and Lasagne for creating convolutional neural networks. You can find ipython notebook 
+tutorials for theano and lasagne [here](https://github.com/ebenolson/pydata2015)
+
+
+Currently we have an accuracy of 17% using basic Lasagne feature. Will have to improve this by experimenting and understanding
+what Lasagne does.
+
