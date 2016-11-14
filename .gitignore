@@ -35,3 +35,11 @@ funfilter.jpg
 imageMosaic.m
 temp1.pgm
 temp2.pgm
+
+# intellij project files
+.idea
+
+# test code
+cnn_test.py
+mnist.pkl.gz
+ComputerVision.iml
