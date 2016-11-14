@@ -10,6 +10,7 @@
 |F<sub>1</sub>: Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
 |F<sub>1</sub> + 1000 clusters | ~58% |
 |F<sub>1</sub> + 2000 clusters| ~62.8% |
+|ConvNets with inception tensorflow| ~89.4% |
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
 * With 400 clusters
@@ -21,5 +22,7 @@
 * With 2000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_2000.png)
 
+* With ConvNets using Tensorflow
+![cnn](https://github.com/Sunhick/ComputerVision/blob/master/project/output/cnn_inception.png)
 
 * **CNN**: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
