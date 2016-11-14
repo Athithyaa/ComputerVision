@@ -18,7 +18,7 @@
 * With 1000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_1000.png)
 
-* With 2000 clusters without normalization
+* With 2000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_2000.png)
 
 
