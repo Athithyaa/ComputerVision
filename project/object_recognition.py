@@ -23,7 +23,7 @@ from sklearn.multiclass import OneVsRestClassifier
 # from sklearn.neural_network import MLPClassifier
 
 
-clusters = 1000
+clusters = 2000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 
@@ -54,7 +54,7 @@ for root, dirs, files in os.walk(siftPath):
             # image size doesn't effect bag of words model. 
             ndist = (dist-min(dist))/(max(dist)-min(dist))
 
-            wordDist = np.vstack((wordDist, ndist))
+            wordDist = np.vstack((wordDist, dist))
             categories.append(category)
         except Exception as e:
             print("Error: ", e)
@@ -63,6 +63,7 @@ for root, dirs, files in os.walk(siftPath):
 # pdb.set_trace()
 # clf = svm.SVC()
 clf = svm.SVC(kernel='linear', verbose=True)    # linear svm kernel gives 56% accuracy
+# clf = svm.LinearSVC(verbose=True)
 # clf = OneVsRestClassifier(svm.SVC(kernel='linear', verbose=True))
 #clf = RandomForestClassifier(n_estimators=25)
 model = clf.fit(wordDist, categories)

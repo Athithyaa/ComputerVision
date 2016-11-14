@@ -9,7 +9,7 @@
 |Bag of visual words using SURF (descriptors of 64 dimension with orientation)|~44%|
 |F<sub>1</sub>: Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
 |F<sub>1</sub> + 1000 clusters | ~58% |
-|F<sub>1</sub> + 2000 clusters - Normalization| ~62.8% |
+|F<sub>1</sub> + 2000 clusters| ~62.8% |
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
 * With 400 clusters

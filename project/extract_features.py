@@ -22,14 +22,14 @@ folder = None
 
 #pdb.set_trace()
 # create SIFT feature detector
-#sift = cv2.SIFT()
+# sift = cv2.SIFT()
 
 # compute dense SIFT
-#dense = cv2.FeatureDetector_create("Dense")
+# dense = cv2.FeatureDetector_create("Dense")
 
 
-hessianThreshold = 400 # a good value is between 300-500
-surf = cv2.SURF(400)
+hessianThreshold = 300 # a good value is between 300-500
+surf = cv2.SURF(300)
 surf.upright = True # don't compute orientation
 surf.extended = True    # Extent to get 128-dim descriptors.
 
