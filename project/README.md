@@ -10,6 +10,7 @@
 |F<sub>1</sub>: Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
 |F<sub>1</sub> + 1000 clusters | ~58% |
 |F<sub>1</sub> + 2000 clusters| ~62.8% |
+|F<sub>1</sub> + 3000 clusters| ~63.08% |
 |ConvNets with inception tensorflow| ~89.4% |
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
