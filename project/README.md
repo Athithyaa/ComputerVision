@@ -22,7 +22,7 @@
 * With 2000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_2000.png)
 
+* **CNN**: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
+
 * With ConvNets using Tensorflow
 ![cnn](https://github.com/Sunhick/ComputerVision/blob/master/project/output/cnn_inception.png)
-
-* **CNN**: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
