@@ -1,0 +1,12 @@
+.selected-image {
+    border-color: #6699ff;
+    border-style: solid;
+    border-width: thick;    
+}
+
+.box {
+    padding : 5px;
+    display : inline-block;
+    min-width: 100px;
+    min-height: 50px;    
+}

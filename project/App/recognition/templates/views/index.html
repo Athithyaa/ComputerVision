@@ -7,6 +7,7 @@
   <link href="http://v4.pingendo.com/assets/bootstrap/themes/default.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="static/lib/bootstrap/dist/css/bootstrap.min.css" />
   <link href="static/lib/image-picker/image-picker/image-picker.min.js" rel="stylesheet" type="text/css">
+  <link href="static/css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body ng-cloak ng-app="recognitionApp">
@@ -42,6 +43,7 @@
             <option data-img-src="static/images/bed.jpg" data-img-alt="Page 5" value="5">  Page 5  </option>
             <option data-img-src="static/images/bed.jpg" data-img-alt="Page 6" value="6">  Page 6  </option>
           </select> -->
+          <!-- <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
@@ -54,10 +56,30 @@
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
           <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
-          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
-          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/>
+          <img src="static/images/bed.jpg" alt="bed_img" width="150" height="100"/> -->
+          <div class="row">
+            {% verbatim %} 
+            <div ng-repeat="image in mCtrl.images track by $index">
+            <div class="col-md-2">
+              <div ng-click="mCtrl.selectImage(image)" ng-class="{'selected-image': (mCtrl.selected_image === image)}">
+                <img ng-src="static/images/{{image}}" alt="{{image}}" width="150" height="100"/>
+              </div>
+              <br/>
+            </div>
+            </div>
+            {% endverbatim %}
+          </div>
+
+          </div>
         </div>
-      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label>Upload:</label>
+          <input class="form-control" ngf-select="mCtrl.upload($file)" type="file">
+          <!-- <div class="button" ngf-select="upload($file)">Upload on file select</div> -->
+        </div>
+      <div>
 
       <br/>
       <div class="row">
@@ -66,19 +88,25 @@
                 <label class="form-control">URL:</label>
             </div>
             <div class="col-md-6">
-                <input class="form-control" type="text" placeholder="http://">
+                <input class="form-control" type="text" placeholder="http://" ng-model="data.url">
             </div>
             <div class="col-md-2">
-                <button class="btn-primary form-control" ng-click="mCtrl.submit()">Submit</button>
+                <button class="btn-primary form-control" ng-click="mCtrl.submit(data)">Submit</button>
             </div>
         </div>
       </div>
 
       <div class="row">
+        {% verbatim %}
         <div class="col-md-12">
-            <h3>Results:</h3>
-            <p> Hello Sunil {{ mCtrl.message }}</p>
+              <h3>Results:</h3>
+              <h4>
+                {{mCtrl.message}}
+              </h4>
+              <br/>
+              <img ng-src="static/images/{{mCtrl.resImg}}" alt="result" ng-show="mCtrl.response" />
         </div>
+        {% endverbatim %}
       </div>
     </div>
   </div>
@@ -88,6 +116,8 @@
   <script type="text/javascript" src="static/lib/angular-route/angular-route.min.js"></script>
   <script type="text/javascript" src="static/lib/angular-resource/angular-resource.min.js"></script>
   <script type="text/javascript" src="static/lib/image-picker/image-picker/image-picker.min.js"></script>
+  <script type="text/javascript" src="static/lib/ng-file-upload/ng-file-upload.min.js"></script>
+  <script type="text/javascript" src="static/lib/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
   <script type="text/javascript" src="static/js/mainController.js"></script>
 </body>
 
