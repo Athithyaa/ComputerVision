@@ -36,6 +36,14 @@ imageMosaic.m
 temp1.pgm
 temp2.pgm
 
+# intellij project files
+.idea
+
+# test code
+cnn_test.py
+mnist.pkl.gz
+ComputerVision.iml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -126,3 +134,4 @@ ENV/
 
 # Rope project settings
 .ropeproject
+project/Resize/
