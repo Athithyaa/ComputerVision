@@ -1,5 +1,4 @@
 """scene classifier
-
 Load the inception model retained with our dataset using tensorflow.
 And feed in the test images for testing the accuracy of ConvNets(CNN).
 """
@@ -14,15 +13,18 @@ import os
 import numpy as np
 
 def classify(image_path):
+    if not os.path.exists(image_path):
+        print("File doesn't exists!", image_path)
+        return "Error in running tensorflow"
     # Read in the image_data
     image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 
     # Loads label file, strips off carriage return
     label_lines = [line.rstrip() for line 
-                       in tf.gfile.GFile("/tf_files/retrained_labels.txt")]
+                       in tf.gfile.GFile("recognition/labels.txt")]
 
     # Unpersists graph from file
-    with tf.gfile.FastGFile("/tf_files/retrained_graph.pb", 'rb') as f:
+    with tf.gfile.FastGFile("recognition/bottleneck/graph.pb", 'rb') as f:
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(f.read())
         _ = tf.import_graph_def(graph_def, name='')
@@ -42,4 +44,4 @@ def classify(image_path):
         cat = label_lines[node_id].lower()
         print('%s [confidence=%.5f]' %(cat, score))
 
-        return cat
+        return cat + ' (score=' + str(score) + ")"
