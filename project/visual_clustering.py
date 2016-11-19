@@ -25,7 +25,7 @@ from sklearn import decomposition
 
 import warnings
 
-clusters = 2000
+clusters = 3000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 # pdb.set_trace()

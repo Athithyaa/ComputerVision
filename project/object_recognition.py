@@ -23,7 +23,7 @@ from sklearn.multiclass import OneVsRestClassifier
 # from sklearn.neural_network import MLPClassifier
 
 
-clusters = 2000
+clusters = 3000
 features = np.empty((0, 128))
 siftPath = './SURF/train/'
 
