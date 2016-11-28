@@ -25,6 +25,9 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 * With 2000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_2000.png)
 
+* Accuracy vs # of clusters:
+![accuracy]((https://github.com/Sunhick/ComputerVision/blob/master/project/output/Accuracy_clusters.png))
+
 * **CNN**: Convolutional neural networks(CNN) can be used to recognize the scene. Not much support is available in scikit learn for deep learning or CNN. We can use tensorflow or TF-flow, a abstraction lirbary on top of tensorflow.
 
 * With ConvNets using Tensorflow
