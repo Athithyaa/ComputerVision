@@ -12,9 +12,9 @@ import cPickle as pickle
 
 import pdb
 
-imgPath = './Images/test/'
+imgPath = './Images/train/'
 
-siftFolder = './SURF/test/'
+siftFolder = './SURF/train/'
 min_pt = np.inf
 
 features = np.empty((0, 128))  # 64 for SURF and 128 for SIFT
