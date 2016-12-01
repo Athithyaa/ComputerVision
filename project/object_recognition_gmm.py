@@ -50,14 +50,13 @@ for root, dirs, files in os.walk(siftPath):
 
             for i in range(0, clusters):
                 scores = gmm[i].score_samples(feature)
-                filt_scores = filter(lambda ele: ele if ele > 0 else 0, scores)
-                counter.append(sum(filt_scores))
+                counter.append(sum(scores))
 
             dist = np.float64([counter[i] for i in range(0, clusters)])
             # normalize visual word distribution histogram so that 
             # image size doesn't effect bag of words model. 
             ndist = (dist - min(dist))/(max(dist)-min(dist))
-            wordDist = np.vstack((wordDist, dist))
+            wordDist = np.vstack((wordDist, ndist))
             categories.append(category)
         except Exception as e:
             print("Error: ", e)
@@ -65,7 +64,7 @@ for root, dirs, files in os.walk(siftPath):
 
 # pdb.set_trace()
 # clf = svm.SVC()
-clf = svm.SVC(kernel='linear', verbose=True)    # linear svm kernel gives 56% accuracy
+clf = svm.SVC(kernel='poly', degree=3, C=1.0, verbose=True)    # linear svm kernel gives 56% accuracy
 # clf = svm.LinearSVC(verbose=True)
 # clf = OneVsRestClassifier(svm.SVC(kernel='linear', verbose=True))
 #clf = RandomForestClassifier(n_estimators=25)

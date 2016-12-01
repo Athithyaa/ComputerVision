@@ -59,15 +59,14 @@ for root, dirs, files in os.walk(siftPath):
             counter = [] 
             for i in range(0, clusters):
                 scores = gmm[i].score_samples(feature)
-                filt_scores = filter(lambda ele: ele if ele > 0 else 0, scores)
-                counter.append(sum(filt_scores))
+                counter.append(sum(scores))
 
             dist = np.float64([counter[i] for i in range(0, clusters)])
             # normalize visual word distribution histogram so that 
             # image size doesn't effect bag of words model. 
             ndist = (dist - min(dist))/(max(dist)-min(dist))
             # pdb.set_trace()
-            cat = clf.predict(dist)[0].lower()
+            cat = clf.predict(ndist)[0].lower()
             predictLabels.append(cat)
 
             if cat == category:
