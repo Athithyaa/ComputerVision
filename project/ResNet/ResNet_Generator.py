@@ -35,7 +35,7 @@ def parse_args():
 def generate_data_layer():
     data_layer_str = '''name: "ResNet"
 layer {
-  name: "data"
+  name: "image"
   type: "Python"
   top: "data"
   top: "label"
@@ -48,7 +48,7 @@ layer {
     # the layer name -- the class name in the module
     layer: 'DataAugLayer'
     
-    param_str: '{"source": "examples/flickr_logo/data/train_image_aug_files_256.txt", "batch_size": 16, "ph": "train", "new_height": 256, "new_width": 256, "mirror": "true", "crop_size": 227, "mean_file": "examples/flickr_logo/data/flickr_logo_train_aug_mean.binaryproto"}'
+    param_str: '{"source": "../Images/train/", "batch_size": 16, "ph": "train", "new_height": 256, "new_width": 256, "mirror": "true", "crop_size": 227, "mean_file": "examples/flickr_logo/data/flickr_logo_train_aug_mean.binaryproto"}'
   }
 }
 
