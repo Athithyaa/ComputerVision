@@ -32,7 +32,7 @@ siftPath = './SURF/train/'
 wordDist = np.empty((0, clusters))
 categories = []
 
-mbk = joblib.load('./models/surf-kmeans_v1.pkl') 
+gmm = joblib.load('./models/gmm_v1.pkl')
 
 for root, dirs, files in os.walk(siftPath):
     readCount = 0
@@ -46,14 +46,17 @@ for root, dirs, files in os.walk(siftPath):
             fpath = os.path.join(root, name)
             print("Processing pickled file... ", fpath)
             feature = pickle.load(open(fpath, 'rb'))
-            vlabels = mbk.predict(feature)
-            counter = collections.Counter(vlabels)
-            dist = np.float64([counter[i] for i in range(0, clusters)])
+            counter = []
 
+            for i in range(0, clusters):
+                scores = gmm[i].score_samples(feature)
+                filt_scores = filter(lambda ele: ele if ele > 0 else 0, scores)
+                counter.append(sum(filt_scores))
+
+            dist = np.float64([counter[i] for i in range(0, clusters)])
             # normalize visual word distribution histogram so that 
             # image size doesn't effect bag of words model. 
-            ndist = (dist-min(dist))/(max(dist)-min(dist))
-
+            ndist = (dist - min(dist))/(max(dist)-min(dist))
             wordDist = np.vstack((wordDist, dist))
             categories.append(category)
         except Exception as e:
@@ -65,7 +68,7 @@ for root, dirs, files in os.walk(siftPath):
 clf = svm.SVC(kernel='linear', verbose=True)    # linear svm kernel gives 56% accuracy
 # clf = svm.LinearSVC(verbose=True)
 # clf = OneVsRestClassifier(svm.SVC(kernel='linear', verbose=True))
-# clf = RandomForestClassifier(n_estimators=25)
+#clf = RandomForestClassifier(n_estimators=25)
 model = clf.fit(wordDist, categories)
 del wordDist, categories
 
