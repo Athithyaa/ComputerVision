@@ -56,7 +56,7 @@ print("Image count = ", imgCount, "Number of datapoints = ", len(features), "clu
 # kmeans = KMeans(n_clusters=clusters)
 # clf = kmeans.fit(features)
 
-#clf = joblib.load('kmeans_v1.pkl') 
+# clf = joblib.load('kmeans_v1.pkl')
 
 # mini batch kmeans is faster
 mbk = MiniBatchKMeans(init='k-means++', n_clusters=clusters, batch_size=20000, max_no_improvement=300, verbose=True)

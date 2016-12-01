@@ -43,8 +43,8 @@ cluster_gmm = {}
 for k in cluster_points.keys():
     cluster_gmm[k] = mixture.GaussianMixture(n_components=5, covariance_type='full', verbose=True).fit(cluster_points[k])
 
-
-print("hello")
+# store model in a pickle file so that we can use it later.
+joblib.dump(cluster_gmm, './models/gmm_v1.pkl')
 
 
 
