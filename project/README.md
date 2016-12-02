@@ -14,6 +14,7 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 |F<sub>1</sub> + 2000 clusters| ~62.8% |
 |F<sub>1</sub> + 3000 clusters| ~63.08% |
 |ConvNets with inception tensorflow| ~89.4% |
+|Bag of Visual words using Gaussian Mixture model|~56.48%|
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
 * With 400 clusters
@@ -24,6 +25,9 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 
 * With 2000 clusters
 ![confusion_matrix_1000](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_2000.png)
+
+* Using Gaussian Mixture model
+![confusion_matrix_gmm](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_gmm.png)
 
 * Accuracy vs # of clusters:
 ![accuracy](https://github.com/Sunhick/ComputerVision/blob/master/project/output/Accuracy_clusters.png)
