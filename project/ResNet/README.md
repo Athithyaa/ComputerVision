@@ -40,7 +40,7 @@ $ /full/path/to/caffe/build/tools/caffe train --solver /full/path/to/my_solver.p
 ```
 
 ### Credits:
-** ResNet_Generator.py:** Generate the residule learning network. We used this file to build the neural network architecture, rather than trying to code it by hand.
+**ResNet_Generator.py:** Generate the residule learning network. We used this file to build the neural network architecture, rather than trying to code it by hand.
 
 Author: Yemin Shi
 Email: shiyemin@pku.edu.cn
