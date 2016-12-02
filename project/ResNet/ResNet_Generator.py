@@ -66,7 +66,7 @@ layer {
     # the layer name -- the class name in the module
     layer: 'DataAugLayer'
     
-    param_str: '{"source": "examples/flickr_logo/data/test_image_aug_files_256.txt", "batch_size": 1, "ph": "test", "new_height": 256, "new_width": 256, "mirror": "true", "crop_size": 227, "mean_file": "examples/flickr_logo/data/flickr_logo_test_aug_mean.binaryproto"}'
+    param_str: '{"source": "../Images/train/", "batch_size": 1, "ph": "test", "new_height": 256, "new_width": 256, "mirror": "true", "crop_size": 227, "mean_file": "examples/flickr_logo/data/flickr_logo_test_aug_mean.binaryproto"}'
   }
 }
 '''
