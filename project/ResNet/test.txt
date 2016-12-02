@@ -1,0 +1,5 @@
+/Users/Sunny/prv/github/ComputerVision/project/Resize/test/bedroom/image_0003.jpg 0
+/Users/Sunny/prv/github/ComputerVision/project/Resize/test/bedroom/image_0003.jpg 0
+/Users/Sunny/prv/github/ComputerVision/project/Resize/test/bedroom/image_0003.jpg 0
+/Users/Sunny/prv/github/ComputerVision/project/Resize/test/bedroom/image_0003.jpg 0
+/Users/Sunny/prv/github/ComputerVision/project/Resize/test/bedroom/image_0003.jpg 0
