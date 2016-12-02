@@ -64,16 +64,27 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
     mbk.fit(features)
 
+# dump the kmeans model
+joblib.dump(mbk, './models/surf-kmeans_v1.pkl')
+
+centers = mbk.cluster_centers_
+del mbk
 # pdb.set_trace()
 # pca = decomposition.PCA(n_components=3)
 # pca.fit(features)
 # features = pca.transform(features)
-# gmm = mixture.GMM(n_components=clusters, verbose=True)
+
+# BoW with Gaussian mixture model (soft assignment). 
+# Initialize the GMM means with kmeans cluster for faster convergence.
+# pdb.set_trace()
+# n_samples = int(.1 * len(features))
+# sampled_features = features[np.random.choice(features.shape[0], size=n_samples, replace=False), :]
+# gmm = mixture.GaussianMixture(n_components=clusters, means_init=centers, warm_start=True, verbose=True)
 # gmm.fit(features)
 
 # release the memory for feature points after model is predicted
 del features
 
 
-# dump the model
-joblib.dump(mbk, './models/surf-kmeans_v1.pkl')
+# dump the gmm model
+# joblib.dump(gmm, './models/surf-gmm_v1.pkl')
