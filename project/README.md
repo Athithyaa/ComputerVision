@@ -37,11 +37,7 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 
 Features are extracted using SIFT. SIFT is invariant to affine transformations this make's it robust. Another variant of SIFT is SURF which works extractly like SIFT, however SURF is computationally faster and more robust.
 
-Original Image:
-![image](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image.jpg) 
-
-SIFT features:
-![image_sift](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image_sift.jpg) 
+Original Image: ![image](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image.jpg) SIFT features:![image_sift](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image_sift.jpg) 
 
 
 ## Using Lasagne
