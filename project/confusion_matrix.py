@@ -14,6 +14,7 @@ from sklearn.metrics import confusion_matrix
 
 np.set_printoptions(precision=2)
 
+
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
                           title='Confusion matrix',

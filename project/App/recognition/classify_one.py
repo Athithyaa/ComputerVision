@@ -3,15 +3,24 @@
 Load the inception model retained with our dataset using tensorflow.
 And feed in the test images for testing the accuracy of ConvNets(CNN).
 """
-from __future__ import print_function
 
+
+from __future__ import print_function
 import tensorflow as tf
+from sklearn.externals import joblib
+import cPickle as pickle
+import cv2
 import sys
 
 import collections
 
 import os
 import numpy as np
+
+mbk = joblib.load('../models/surf-kmeans_v1.pkl')
+clf_1 = joblib.load('../models/surf-svm_v1.pkl')
+gmm = joblib.load('../models/gmm_v1.pkl')
+clf_2 = joblib.load('../models/surf-svm_v1.pkl')
 
 def classify(image_path):
     if not os.path.exists(image_path):
@@ -46,3 +55,34 @@ def classify(image_path):
         print('%s [confidence=%.5f]' %(cat, score))
 
         return cat + ' (score=' + str(score) + ")"
+
+
+def classify_bow(fpath):
+    clusters = 3000
+    surf = cv2.SURF(300)
+    img = cv2.imread(fpath)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    kp, desc = surf.detectAndCompute(gray, None)
+    vlabels = mbk.predict(desc)
+    counter = collections.Counter(vlabels)
+    dist = np.float64([counter[i] for i in range(0, clusters)])
+    ndist = (dist-min(dist))/(max(dist)-min(dist))
+    cat = clf_1.predict(ndist)[0].lower()
+    return cat
+
+
+def classify_bow_gmm(fpath):
+    clusters = 3000
+    surf = cv2.SURF(300)
+    img = cv2.imread(fpath)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    kp, desc = surf.detectAndCompute(gray, None)
+    counter = []
+    for i in range(0, clusters):
+        scores = gmm[i].score_samples(desc)
+        counter.append(sum(scores))
+    dist = np.float64([counter[i] for i in range(0, clusters)])
+    ndist = (dist-min(dist))/(max(dist)-min(dist))
+    cat = clf_2.predict(ndist)[0].lower()
+    return cat
+

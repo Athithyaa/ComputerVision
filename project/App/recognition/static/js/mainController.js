@@ -28,8 +28,8 @@ app.controller('mainController', ['$http',
         if (typeof data !== 'undefined') {
             url = data.url;
         }
-
-        data = {'url': url, 'img': self.selected_image};
+        var choice = data.choice;
+        data = {'url': url, 'img': self.selected_image, 'choice': choice};
         console.log('button clicked!', self.message, data);
         $http.post("classify", data).then(function(response) {
             console.log("Response from classiier: ",response);
@@ -46,7 +46,6 @@ app.controller('mainController', ['$http',
         }
         else {
             self.selected_image = image;
-            self
         }
     };
 }]);

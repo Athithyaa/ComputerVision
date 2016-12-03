@@ -15,20 +15,29 @@ import uuid
 
 from django.http import JsonResponse
 from classify_one import classify as classifier
+from classify_one import classify_bow, classify_bow_gmm
+
 
 def index(request):
     print("Hello")
     return render(request, "views/index.html")
+
 
 @csrf_exempt
 def classify(request):
     data = json.loads(request.body)
     print("classify: ", data)
 
-    img = data['img'];
+    img = data['img']
     imgPath = os.path.join('recognition/static/images/', img)
     print("Image path: ", imgPath)
 
-    category = classifier(imgPath)
+    if data['choice'] == '3':
+        category = classifier(imgPath)
+    elif data['choice'] == '2':
+        category = classify_bow_gmm(imgPath)
+    else:
+        category = classify_bow(imgPath)
+
     #return render("hello sunil")
     return JsonResponse({'classifier': str(category)})

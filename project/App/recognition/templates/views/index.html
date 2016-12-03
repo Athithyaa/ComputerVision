@@ -89,6 +89,11 @@
             </div>
             <div class="col-md-6">
                 <input class="form-control" type="text" placeholder="http://" ng-model="data.url">
+                <div>
+                    <label class="radio-inline"><input type="radio" value="1" name="mchoice" ng-model="data.choice"> Bag Of Words </input></label>
+                    <label class="radio-inline"><input type="radio" value="2" name="mchoice" ng-model="data.choice"> Bag Of Words with GMM </input></label>
+                    <label class="radio-inline"><input type="radio" value="3" name="mchoice" ng-model="data.choice"> Convolutional Neural Network </input></label>
+                </div>
             </div>
             <div class="col-md-2">
                 <button class="btn-primary form-control" ng-click="mCtrl.submit(data)">Submit</button>
