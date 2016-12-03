@@ -1,5 +1,12 @@
 ## Scene recoginition
 
+### Feature Extraction
+
+Features are extracted using SIFT. SIFT is invariant to affine transformations this make's it robust. Another variant of SIFT is SURF which works extractly like SIFT, however SURF is computationally faster and more robust.
+
+Original Image: ![image](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image.jpg) SIFT features:![image_sift](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image_sift.jpg) 
+
+### Classification Methods
 * **Bag of words(BoW)**: Extract the features (keypoints and descriptors) from the image using SIFT or SURF. Each descriptor describes a blob of the image (4x4 pixels). Assume these descriptors are independent and cluster them using KMeans or MiniBatchKMeans(faster than regular kmeans). Construct a visual word histogram for each train images and cluster label, feed this to the support vector machine(SVM with linear kernel) to model the classifier. Normalize the visual word histogram to eliminate the impact of varying image sizes and other parameters. Also SVM performs well when the input is normalized (per scikit learn website). 
 
 Increasing the number of clusters increases the accuracy of model but at the cost of performance overhead (computationall intensive). It saturates at a certain number of clusters, after this limit the model degrades with bad accuracy.
@@ -41,12 +48,8 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 * With ConvNets using Tensorflow
 ![cnn](https://github.com/Sunhick/ComputerVision/blob/master/project/output/cnn_inception.png)
 
-## Feature Extraction
-
-Features are extracted using SIFT. SIFT is invariant to affine transformations this make's it robust. Another variant of SIFT is SURF which works extractly like SIFT, however SURF is computationally faster and more robust.
-
-Original Image: ![image](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image.jpg) SIFT features:![image_sift](https://github.com/Sunhick/ComputerVision/blob/master/project/output/image_sift.jpg) 
-
+### Category Histogram chart
+![cat_hist](https://github.com/Sunhick/ComputerVision/blob/master/project/output/hist/canvas.png) 
 
 ## Using Lasagne
  
