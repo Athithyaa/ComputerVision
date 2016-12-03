@@ -9,12 +9,13 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 |F<sub>0</sub>:Bag of Visual words using SIFT | ~39% |
 |F<sub>0</sub> + Normalization of histogram  | ~41.2%    |
 |Bag of visual words using SURF (descriptors of 64 dimension with orientation)|~44%|
+|Bag of Visual words using Gaussian Mixture model with a custom scoring scheme|~53.00%|
 |F<sub>1</sub>: Bag of visual words using SURF (descriptors of 128 dim without orientation) + Normalization | ~56.3% |
+|Bag of Visual words using Gaussian Mixture model|~56.48%|
 |F<sub>1</sub> + 1000 clusters | ~58% |
 |F<sub>1</sub> + 2000 clusters| ~62.8% |
 |F<sub>1</sub> + 3000 clusters| ~63.08% |
 |ConvNets with inception tensorflow| ~89.4% |
-|Bag of Visual words using Gaussian Mixture model|~56.48%|
 
 ### confusion matrix for BoW with SURF(128 dimensions) with normalization of histogram
 * With 400 clusters
@@ -28,6 +29,9 @@ Increasing the number of clusters increases the accuracy of model but at the cos
 
 * Using Gaussian Mixture model
 ![confusion_matrix_gmm](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_gmm.png)
+
+* Using Gaussian Mixture model with a custom scoring scheme
+![confusion_matrix_gmm_cs](https://github.com/Sunhick/ComputerVision/blob/master/project/output/confusion_matrix_gmm_own_score.png)
 
 * Accuracy vs # of clusters:
 ![accuracy](https://github.com/Sunhick/ComputerVision/blob/master/project/output/Accuracy_clusters.png)
