@@ -29,7 +29,7 @@ folder = None
 
 
 hessianThreshold = 300 # a good value is between 300-500
-surf = cv2.SURF(300)
+surf = cv2.SURF(hessianThreshold)
 surf.upright = True # don't compute orientation
 surf.extended = True    # Extent to get 128-dim descriptors.
 
